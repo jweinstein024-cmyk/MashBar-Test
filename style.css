@@ -68,7 +68,8 @@ header {
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: rgba(27, 20, 15, 0.94);
+  /* solid page color: a see-through header would leave a dark box behind the blended logo */
+  background: var(--walnut-dark);
   border-bottom: 1px solid var(--plank-line);
 }
 
