@@ -6,7 +6,7 @@
   <title>Mash Bar | East Lansing Live Music &amp; Bourbon &amp; Whiskey Bar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,12 +16,13 @@
       <a href="#hero"><img src="images/mash%20EL.png" alt="Mash Bar — a bourbon, whiskey &amp; beer bar" width="477" height="246"></a>
     </h1>
     <nav>
-      <a href="#visit">Visit</a>
+      <a href="#calendar">Calendar</a>
       <a href="#music">Music</a>
       <a href="#menu">Drinks</a>
       <a href="#play">Play at Mash</a>
       <a href="#parties">Private Parties</a>
       <a href="#contact">Contact</a>
+      <a href="#visit">Visit</a>
     </nav>
   </header>
 
@@ -52,6 +53,21 @@
                   fill="none" stroke="#ffb04a" stroke-width="0.9" stroke-linejoin="round"
                   filter="url(#filament-glow)"/>
       </symbol>
+      <!-- Halloween decorations for the October calendar -->
+      <symbol id="cobweb" viewBox="0 0 120 120">
+        <path d="M0 0L120.0 0.0M0 0L114.1 37.1M0 0L97.1 70.5M0 0L70.5 97.1M0 0L37.1 114.1M0 0L0.0 120.0M22.0 0.0Q18.9 3.0 20.9 6.8Q17.0 8.7 17.8 12.9Q13.5 13.5 12.9 17.8Q8.7 17.0 6.8 20.9Q3.0 18.9 0.0 22.0M44.0 0.0Q37.8 6.0 41.8 13.6Q34.1 17.4 35.6 25.9Q27.0 27.0 25.9 35.6Q17.4 34.1 13.6 41.8Q6.0 37.8 0.0 44.0M68.0 0.0Q58.4 9.2 64.7 21.0Q52.7 26.8 55.0 40.0Q41.8 41.8 40.0 55.0Q26.8 52.7 21.0 64.7Q9.2 58.4 0.0 68.0M94.0 0.0Q80.7 12.8 89.4 29.0Q72.8 37.1 76.0 55.3Q57.8 57.8 55.3 76.0Q37.1 72.8 29.0 89.4Q12.8 80.7 0.0 94.0" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="bat" viewBox="0 0 40 16">
+        <path d="M20 5 L18.6 2 L17.8 5.2 C15 2.5 9 1.5 1 5.5 C5 6 7.5 8 8.5 11.5 C10.5 9.5 13.5 9.5 15.5 12 C17 10 18.5 9.5 20 10.5 C21.5 9.5 23 10 24.5 12 C26.5 9.5 29.5 9.5 31.5 11.5 C32.5 8 35 6 39 5.5 C31 1.5 25 2.5 22.2 5.2 L21.4 2 Z" fill="currentColor"/>
+      </symbol>
+      <symbol id="pumpkin" viewBox="0 0 40 40">
+        <path d="M19 9 C19 6 20 4 23 3 L24 5 C22 6 21.5 7.5 21.5 9 Z" fill="#6b7a3e"/>
+        <ellipse cx="13" cy="24" rx="9" ry="12" fill="#c75a1c"/>
+        <ellipse cx="27" cy="24" rx="9" ry="12" fill="#c75a1c"/>
+        <ellipse cx="20" cy="24" rx="9" ry="13" fill="#e8772e"/>
+        <path d="M13 20 L16.5 16 L18 21 Z M27 20 L23.5 16 L22 21 Z" fill="#ffd27a"/>
+        <path d="M11 26 Q20 33 29 26 L27 26 L25.5 28 L23.5 26.5 L21.5 29 L19.5 26.5 L17.5 29 L15.5 26.5 L13.5 28 Z" fill="#ffd27a"/>
+      </symbol>
     </defs>
   </svg>
 
@@ -76,67 +92,61 @@
   <main>
     <section id="hero">
       <h2>East Lansing Live Music &amp; Mash Bourbon &amp; Whiskey Bar</h2>
-      <p>We bring in great local &amp; regional acts, fantastic live music entertainment is always guaranteed.</p>
+      <p>Live music every week. DJs till close. Drinks all night.</p>
     </section>
 
-    <section id="visit">
-      <h2>Visit Us</h2>
-      <p>
-        212 Albert St,<br>
-        East Lansing, MI 48823<br>
-        <a href="tel:5178582100">517.858.2100</a>
-      </p>
-
-      <h3>Hours</h3>
-      <ul class="plain">
-        <li>Closed Sunday &amp; Monday</li>
-        <li>Tuesday 6pm–10pm</li>
-        <li>Wednesday – Saturday 6pm–2am</li>
+    <section id="calendar">
+      <div class="haunt">
+      <svg class="web web-left" aria-hidden="true"><use href="#cobweb"/></svg>
+      <svg class="web web-right" aria-hidden="true"><use href="#cobweb"/></svg>
+      <div class="bats" aria-hidden="true">
+        <svg class="bat bat-1"><use href="#bat"/></svg>
+        <svg class="bat bat-2"><use href="#bat"/></svg>
+        <svg class="bat bat-3"><use href="#bat"/></svg>
+      </div>
+      <h2>October at Mash</h2>
+      <p class="cal-intro">Who's playing and what's on special, every night this month.</p>
+      <div class="cal-weekdays" aria-hidden="true">
+        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+      </div>
+      <ol id="calendar-grid" class="cal-grid"></ol>
+      <ul class="plain cal-open-hours">
+        <li><strong>Tuesday</strong> 6pm - 10pm</li>
+        <li><strong>Wednesday - Saturday</strong> 6pm - 2am</li>
       </ul>
+      <noscript>
+        <p>Turn on JavaScript to see the October calendar.</p>
+      </noscript>
+      </div>
     </section>
 
     <section id="music">
-      <h2>Music</h2>
-      <ul class="plain">
-        <li><strong>Wild West Wednesdays:</strong> Live Music 8pm–10pm, DJ 10pm–2am</li>
-        <li><strong>Thursday:</strong> Karaoke 9–12</li>
-        <li><strong>Friday:</strong> Live Music at 9:30pm</li>
-        <li><strong>Saturday:</strong> DJ at 9:30pm</li>
-      </ul>
+      <div class="music-layout">
+        <div>
+          <h2>Music</h2>
+          <ul class="plain">
+            <li><strong>Wednesday:</strong> Live Music 8pm–10pm, DJ 10pm–Close</li>
+            <li><strong>Thursday:</strong> Karaoke 9–12</li>
+            <li><strong>Friday:</strong> Live Music at 9:30pm</li>
+            <li><strong>Saturday:</strong> DJ at 9:30pm</li>
+          </ul>
+        </div>
+
+        <!--
+          Photo slideshow. To add a photo, put the file in images/slideshow/
+          and add a line like this (alt describes the photo):
+          <img src="images/slideshow/my-photo.jpg" alt="Band playing on a Friday night">
+        -->
+        <div class="slideshow" aria-label="Photos from Mash" role="region">
+          <img src="images/slideshow/deer.webp" alt="White-tailed buck standing in a snowy forest">
+          <img class="slide-contain" src="images/slideshow/mash%20EL.png" alt="Mash — a bourbon, whiskey &amp; beer bar logo">
+          <p class="slideshow-empty">Photos coming soon</p>
+        </div>
+      </div>
     </section>
 
     <section id="menu">
       <h2>Drinks</h2>
-
-      <details class="drinks">
-        <summary><h3>Craft</h3></summary>
-        <dl class="cocktails">
-          <div>
-            <dt>Midnight Buzz</dt>
-            <dd>Vodka, Grind Espresso Rum, Frangelico, Simple Syrup, Coffee, Choc Syrup</dd>
-          </div>
-          <div>
-            <dt>Hibiscus Hippie</dt>
-            <dd>Hibiscus Syrup, Bourbon, Pineapple Juice, Ginger Beer</dd>
-          </div>
-          <div>
-            <dt>Peachy Paradise Sangria</dt>
-            <dd>Riesling, Vodka, Peach Schnapps, Pineapple Juice, Peach Syrup</dd>
-          </div>
-          <div>
-            <dt>Southern Sunrise</dt>
-            <dd>Whiskey, OJ, Grenadine</dd>
-          </div>
-          <div>
-            <dt>Pixie Stick</dt>
-            <dd>Aperol, Apricot Brandy, Lemon Juice, Simple Syrup, OJ</dd>
-          </div>
-          <div>
-            <dt>Guava Glow</dt>
-            <dd>Tequila, Guava Syrup, Lime Juice, Simple Syrup, Triple Sec</dd>
-          </div>
-        </dl>
-      </details>
 
       <details class="drinks">
         <summary><h3>Beer</h3></summary>
@@ -365,12 +375,28 @@
     <section id="contact">
       <h2>Stay Up to Date</h2>
       <p>Phone: <a href="tel:5178582100">517.858.2100</a></p>
-      <p>Address: 212 Albert St, East Lansing, MI 48823</p>
+      <p>Address: 212 Albert Ave, East Lansing, MI 48823</p>
       <p>
         <a href="https://www.facebook.com/profile.php?id=61555228272809" target="_blank" rel="noopener">Facebook</a>
         &middot;
         <a href="https://www.instagram.com/mash.eastlansing/" target="_blank" rel="noopener">Instagram</a>
       </p>
+    </section>
+
+    <section id="visit">
+      <h2>Visit Us</h2>
+      <p>
+        212 Albert Ave,<br>
+        East Lansing, MI 48823<br>
+        <a href="tel:5178582100">517.858.2100</a>
+      </p>
+
+      <h3>Hours</h3>
+      <ul class="plain">
+        <li>Closed Sunday &amp; Monday</li>
+        <li>Tuesday 6pm–10pm</li>
+        <li>Wednesday – Saturday 6pm–2am</li>
+      </ul>
     </section>
   </main>
 
@@ -378,5 +404,7 @@
     <p>&copy; 2026 Mash Bar &middot; East Lansing, MI</p>
   </footer>
 
+  <script src="calendar.js"></script>
+  <script src="slideshow.js"></script>
 </body>
 </html>

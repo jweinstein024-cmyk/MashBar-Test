@@ -121,13 +121,13 @@ section:last-child {
   border-bottom: none;
 }
 
-section > h2 {
+section h2 {
   font-size: 1.9rem;
   margin: 0 0 1rem;
 }
 
 /* small brass rule under section titles */
-section > h2::after {
+section h2::after {
   content: "";
   display: block;
   width: 48px;
@@ -168,10 +168,13 @@ h4 {
 }
 
 #hero p {
-  max-width: 560px;
+  max-width: 640px;
   margin: 0 auto;
-  color: var(--white-muted);
+  color: var(--white);
+  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
   font-style: italic;
+  font-weight: 600;
+  line-height: 1.45;
 }
 
 /* Edison bulbs strung across the full width of the page, below the header */
@@ -249,8 +252,350 @@ h4 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bulbs svg { animation: none; }
+  .bulbs svg,
+  .bat { animation: none; }
+  .slideshow .slide { transition: none; }
   html { scroll-behavior: auto; }
+}
+
+/* ---------- Music + photo slideshow ---------- */
+
+.music-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.slideshow {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--walnut);
+  border: 1px solid var(--plank-line);
+  border-radius: 6px;
+}
+
+.slideshow .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* logos and graphics: show the whole image instead of cropping */
+.slideshow .slide.slide-contain {
+  object-fit: contain;
+  background: #000;
+}
+
+.slideshow .slide.is-active {
+  opacity: 1;
+}
+
+.slideshow-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  margin: 0;
+  color: var(--white-muted);
+  font-style: italic;
+}
+
+.slideshow.has-slides .slideshow-empty {
+  display: none;
+}
+
+.slideshow-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.6rem;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.slideshow-dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid var(--white);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.slideshow-dots button.is-active {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.slideshow-dots button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .music-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- October calendar ---------- */
+
+/* Halloween panel: candlelit purple-black with cobwebs and bats */
+.haunt {
+  position: relative;
+  padding: 2rem 1.25rem 1.5rem;
+  border: 1px solid #3b2a3f;
+  border-radius: 6px;
+  background:
+    radial-gradient(ellipse at 50% 110%, rgba(232, 119, 46, 0.16), transparent 60%),
+    radial-gradient(ellipse at 50% 0%, rgba(110, 70, 130, 0.22), transparent 65%),
+    #17111a;
+  overflow: hidden;
+}
+
+.haunt > :not(.web):not(.bats) {
+  position: relative;
+  z-index: 1;
+}
+
+.web {
+  position: absolute;
+  top: 0;
+  width: 110px;
+  height: 110px;
+  color: rgba(236, 224, 210, 0.22);
+  pointer-events: none;
+}
+
+.web-left {
+  left: 0;
+}
+
+.web-right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.bats {
+  position: absolute;
+  top: 1.25rem;
+  right: 18%;
+  width: 140px;
+  height: 60px;
+  pointer-events: none;
+}
+
+.bat {
+  position: absolute;
+  color: #0a070c;
+  filter: drop-shadow(0 0 3px rgba(150, 110, 170, 0.45));
+  animation: bat-drift 7s ease-in-out infinite;
+}
+
+.bat-1 { left: 0;    top: 18px; width: 34px; height: 14px; }
+.bat-2 { left: 52px; top: 0;    width: 24px; height: 10px; animation-delay: 1.5s; }
+.bat-3 { left: 96px; top: 30px; width: 18px; height: 8px;  animation-delay: 3s; }
+
+@keyframes bat-drift {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-6px, -5px); }
+}
+
+.cal-halloween {
+  display: flex;
+  flex-direction: column;
+  padding: 0.65rem 0.8rem 0.75rem;
+  border-color: var(--orange);
+  background:
+    radial-gradient(circle at 50% 70%, rgba(232, 119, 46, 0.25), transparent 70%),
+    var(--walnut);
+}
+
+.cal-day .cal-holiday {
+  margin-top: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--orange);
+}
+
+/* sits at the bottom of the Halloween box */
+.cal-pumpkin {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 32px;
+  height: calc(32px + 0.4rem); /* top padding keeps a gap above it */
+  margin-top: auto;
+  padding-top: 0.4rem;
+  filter: drop-shadow(0 0 4px rgba(255, 190, 90, 0.5));
+}
+
+.cal-intro {
+  margin: 0 0 1.25rem;
+  color: var(--white-muted);
+}
+
+.cal-weekdays,
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.cal-weekdays {
+  margin-bottom: 4px;
+}
+
+.cal-weekdays span {
+  padding: 0.35rem 0;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.cal-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cal-day {
+  min-height: 120px;
+  padding: 0.45rem 0.5rem 0.55rem;
+  background: var(--walnut);
+  border: 1px solid var(--plank-line);
+  border-radius: 3px;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.cal-day p {
+  margin: 0.2rem 0 0;
+}
+
+.cal-empty {
+  background: transparent;
+  border-color: transparent;
+}
+
+.cal-date {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cal-weekday {
+  display: none;
+}
+
+.cal-num {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--white);
+}
+
+.cal-time {
+  color: var(--white-muted);
+}
+
+.cal-band {
+  font-weight: 600;
+  color: var(--white);
+}
+
+.cal-deal {
+  color: var(--orange);
+}
+
+.cal-tba {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--white-muted);
+  opacity: 0.7;
+}
+
+.cal-closed {
+  background: var(--walnut-dark);
+}
+
+.cal-closed .cal-num,
+.cal-note {
+  color: var(--white-muted);
+  opacity: 0.6;
+}
+
+.cal-past {
+  opacity: 0.5;
+}
+
+.cal-today {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 1px var(--orange);
+}
+
+.cal-today .cal-num {
+  color: var(--orange);
+}
+
+.cal-open-hours {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 2rem;
+  margin-top: 1rem;
+  color: var(--white);
+}
+
+/* phones: a list of days instead of a squeezed 7-column grid */
+@media (max-width: 700px) {
+  .cal-weekdays {
+    display: none;
+  }
+
+  .haunt {
+    padding: 1.5rem 0.75rem 1.25rem;
+  }
+
+  .web {
+    width: 70px;
+    height: 70px;
+  }
+
+  .bats {
+    display: none;
+  }
+
+  .cal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cal-empty {
+    display: none;
+  }
+
+  .cal-day {
+    min-height: 0;
+    font-size: 0.9rem;
+  }
+
+  .cal-date {
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .cal-weekday {
+    display: inline;
+    font-family: var(--font-display);
+    color: var(--white);
+  }
 }
 
 /* ---------- Lists & menu ---------- */
@@ -325,10 +670,6 @@ details.drinks > :not(summary) {
   margin: 0 1.25rem 1.25rem;
 }
 
-details.drinks .cocktails div {
-  background: var(--walnut-light);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -343,32 +684,6 @@ details.drinks .cocktails div {
 
 .grid li::marker {
   color: var(--brass);
-}
-
-.cocktails {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
-  margin: 0;
-}
-
-.cocktails div {
-  padding: 1rem 1.25rem;
-  background: var(--walnut);
-  border: 1px solid var(--plank-line);
-  border-radius: 4px;
-}
-
-.cocktails dt {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  color: var(--orange);
-}
-
-.cocktails dd {
-  margin: 0.25rem 0 0;
-  color: var(--white-muted);
-  font-size: 0.95rem;
 }
 
 /* ---------- Footer ---------- */
