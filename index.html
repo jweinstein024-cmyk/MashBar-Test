@@ -356,61 +356,64 @@
 
     <section id="play">
       <h2>Interested in Playing at Mash?</h2>
-      <p>We bring in great local &amp; regional acts. Fill out the form below and we may be in touch.</p>
+      <p>We bring in great local &amp; regional acts. Click below to open the booking form, fill it out, and we may be in touch.</p>
 
-      <form id="booking-form" class="booking-form" novalidate>
-        <fieldset>
-          <legend>Your act</legend>
-          <div class="form-row">
-            <label>Artist/Band Name <span class="req">*</span>
-              <input type="text" name="band" required autocomplete="organization">
-            </label>
-            <label>Genre <span class="req">*</span>
-              <input type="text" name="genre" required>
-            </label>
-          </div>
-          <label>Website
-            <input type="url" name="website" placeholder="https://">
-          </label>
-          <label>Link to video of your band playing <span class="req">*</span>
-            <input type="url" name="video" required placeholder="https://">
-          </label>
-        </fieldset>
+      <button type="button" class="button" id="open-booking">Open Booking Form</button>
 
-        <fieldset>
-          <legend>Social</legend>
-          <div class="form-row form-row-3">
-            <label>Facebook
-              <input type="text" name="facebook">
+      <dialog id="booking-dialog" class="booking-dialog" aria-labelledby="booking-title">
+        <div class="dialog-head">
+          <h3 id="booking-title">Booking Form</h3>
+          <button type="button" class="dialog-close" id="close-booking" aria-label="Close booking form">&times;</button>
+        </div>
+        <form id="booking-form" class="booking-form" novalidate>
+          <fieldset>
+            <legend>Your act</legend>
+            <div class="form-row">
+              <label>Artist/Band Name <span class="req">*</span>
+                <input type="text" name="band" required autocomplete="organization">
+              </label>
+              <label>Genre <span class="req">*</span>
+                <input type="text" name="genre" required>
+              </label>
+            </div>
+            <div class="field">
+              <span class="field-label" id="links-label">Website</span>
+              <span class="field-hint" id="links-hint">Your website or social pages (Facebook, Instagram, TikTok, YouTube)</span>
+              <div class="link-list" id="link-list">
+                <div class="link-row">
+                  <input type="text" name="links" inputmode="url" placeholder="Paste a link" aria-labelledby="links-label" aria-describedby="links-hint">
+                </div>
+              </div>
+              <button type="button" class="add-link" id="add-link">
+                <span class="add-link-icon" aria-hidden="true">+</span> Add another link
+              </button>
+            </div>
+            <label>Link to video of your band playing <span class="req">*</span>
+              <input type="url" name="video" required placeholder="https://">
             </label>
-            <label>Instagram
-              <input type="text" name="instagram">
-            </label>
-            <label>TikTok
-              <input type="text" name="tiktok">
-            </label>
-          </div>
-        </fieldset>
+          </fieldset>
 
-        <fieldset>
-          <legend>Contact information</legend>
-          <div class="form-row">
-            <label>Phone <span class="req">*</span>
-              <input type="tel" name="phone" required autocomplete="tel">
-            </label>
-            <label>Your email
-              <input type="email" name="email" autocomplete="email">
-            </label>
-          </div>
-          <label>Additional information
-            <textarea name="info" rows="4"></textarea>
-          </label>
-        </fieldset>
 
-        <p class="form-error" role="alert" hidden>Please fill in the required fields marked with *.</p>
-        <button type="submit" class="button">Send Submission</button>
-        <p class="button-note"><span class="req">*</span> required. Sending opens your email app with your answers filled in.</p>
-      </form>
+          <fieldset>
+            <legend>Contact information</legend>
+            <div class="form-row">
+              <label>Phone <span class="req">*</span>
+                <input type="tel" name="phone" required autocomplete="tel">
+              </label>
+              <label>Your email <span class="req">*</span>
+                <input type="email" name="email" required autocomplete="email">
+              </label>
+            </div>
+            <label>Additional information
+              <textarea name="info" rows="4"></textarea>
+            </label>
+          </fieldset>
+
+          <p class="form-error" role="alert" hidden>Please fill in the required fields marked with *.</p>
+          <button type="submit" class="button">Send Submission</button>
+          <p class="button-note"><span class="req">*</span> required. Sending opens your email app with your answers filled in.</p>
+        </form>
+      </dialog>
     </section>
 
     <section id="parties">

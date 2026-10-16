@@ -769,14 +769,153 @@ ul.hours li:last-child {
   border-color: #d9534f;
 }
 
+/* pop-up window holding the booking form */
+.booking-dialog {
+  width: min(680px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--orange);
+  border-radius: 8px;
+  background: var(--walnut-dark);
+  color: var(--white);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.booking-dialog::backdrop {
+  background: rgba(10, 7, 5, 0.75);
+}
+
+.dialog-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: var(--walnut-dark);
+  border-bottom: 1px solid var(--plank-line);
+}
+
+.dialog-head h3 {
+  margin: 0;
+}
+
+.dialog-close {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--plank-line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--white);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dialog-close:hover,
+.dialog-close:focus-visible {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.booking-dialog .booking-form {
+  max-width: none;
+  padding: 1.25rem;
+}
+
+/* Website: a list of link boxes with "+ Add another link" */
+.booking-form .field {
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--white-muted);
+}
+
+.field-hint {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--white-muted);
+  opacity: 0.75;
+}
+
+.link-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.link-row input {
+  flex: 1;
+}
+
+.remove-link {
+  flex: 0 0 auto;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-top: 0.3rem;
+  padding: 0;
+  border: 1px solid var(--plank-line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--white-muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.remove-link:hover,
+.remove-link:focus-visible {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.add-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  padding: 0.35rem 0.8rem 0.35rem 0.35rem;
+  border: 1px dashed var(--orange);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--orange);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.add-link[hidden] {
+  display: none;
+}
+
+.add-link:hover,
+.add-link:focus-visible {
+  background: rgba(232, 119, 46, 0.12);
+}
+
+.add-link-icon {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 3px;
+  background: var(--orange);
+  color: var(--walnut-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0 1rem;
-}
-
-.form-row-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .req {
@@ -793,8 +932,7 @@ button.button {
 }
 
 @media (max-width: 600px) {
-  .form-row,
-  .form-row-3 {
+  .form-row {
     grid-template-columns: 1fr;
   }
 }
