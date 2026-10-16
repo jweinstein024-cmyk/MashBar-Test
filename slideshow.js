@@ -1,7 +1,7 @@
 // Photo slideshow next to the Music section.
 // Add photos as <img> tags inside .slideshow in index.html.
 
-const SLIDE_SECONDS = 5;
+const SLIDE_SECONDS = 7;
 
 function startSlideshow(show) {
   const slides = Array.from(show.querySelectorAll("img"));

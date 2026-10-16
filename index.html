@@ -138,8 +138,9 @@
           <img src="images/slideshow/my-photo.jpg" alt="Band playing on a Friday night">
         -->
         <div class="slideshow" aria-label="Photos from Mash" role="region">
-          <img src="images/slideshow/deer.webp" alt="White-tailed buck standing in a snowy forest">
-          <img class="slide-contain" src="images/slideshow/mash%20EL.png" alt="Mash — a bourbon, whiskey &amp; beer bar logo">
+          <img src="images/slideshow/DJ%20Pic%201.jpeg" alt="DJ in headphones mixing on a Pioneer controller at Mash">
+          <img src="images/slideshow/DJ%20Pic%202.jpeg" alt="Four close-ups of DJs' hands working the mixer and decks">
+          <img src="images/slideshow/DJ%20Pic%203.jpeg" alt="Two DJs at the decks beneath the lit-up Mash sign on the wood wall">
           <p class="slideshow-empty">Photos coming soon</p>
         </div>
       </div>
@@ -355,15 +356,61 @@
 
     <section id="play">
       <h2>Interested in Playing at Mash?</h2>
-      <p>We bring in great local &amp; regional acts. Send us your info and we may be in touch:</p>
-      <ul>
-        <li>Artist/Band Name</li>
-        <li>Genre</li>
-        <li>Website</li>
-        <li>Link to video of your band playing</li>
-        <li>Social (Facebook, Instagram, TikTok)</li>
-        <li>Contact information (phone &amp; email)</li>
-      </ul>
+      <p>We bring in great local &amp; regional acts. Fill out the form below and we may be in touch.</p>
+
+      <form id="booking-form" class="booking-form" novalidate>
+        <fieldset>
+          <legend>Your act</legend>
+          <div class="form-row">
+            <label>Artist/Band Name <span class="req">*</span>
+              <input type="text" name="band" required autocomplete="organization">
+            </label>
+            <label>Genre <span class="req">*</span>
+              <input type="text" name="genre" required>
+            </label>
+          </div>
+          <label>Website
+            <input type="url" name="website" placeholder="https://">
+          </label>
+          <label>Link to video of your band playing <span class="req">*</span>
+            <input type="url" name="video" required placeholder="https://">
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Social</legend>
+          <div class="form-row form-row-3">
+            <label>Facebook
+              <input type="text" name="facebook">
+            </label>
+            <label>Instagram
+              <input type="text" name="instagram">
+            </label>
+            <label>TikTok
+              <input type="text" name="tiktok">
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Contact information</legend>
+          <div class="form-row">
+            <label>Phone <span class="req">*</span>
+              <input type="tel" name="phone" required autocomplete="tel">
+            </label>
+            <label>Your email
+              <input type="email" name="email" autocomplete="email">
+            </label>
+          </div>
+          <label>Additional information
+            <textarea name="info" rows="4"></textarea>
+          </label>
+        </fieldset>
+
+        <p class="form-error" role="alert" hidden>Please fill in the required fields marked with *.</p>
+        <button type="submit" class="button">Send Submission</button>
+        <p class="button-note"><span class="req">*</span> required. Sending opens your email app with your answers filled in.</p>
+      </form>
     </section>
 
     <section id="parties">
@@ -410,5 +457,6 @@
 
   <script src="calendar.js"></script>
   <script src="slideshow.js"></script>
+  <script src="booking-form.js"></script>
 </body>
 </html>

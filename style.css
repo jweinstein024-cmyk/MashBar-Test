@@ -262,7 +262,7 @@ h4 {
 
 .slideshow {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5; /* portrait, to fit the DJ photos */
   overflow: hidden;
   background: var(--walnut);
   border: 1px solid var(--plank-line);
@@ -708,6 +708,127 @@ ul.hours li:last-child {
 }
 
 .hours li.closed span {
+  color: var(--white-muted);
+}
+
+/* ---------- Booking form ---------- */
+
+.booking-form {
+  max-width: 640px;
+}
+
+.booking-form fieldset {
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.25rem 0.25rem;
+  border: 1px solid var(--plank-line);
+  border-radius: 6px;
+  background: var(--walnut);
+}
+
+.booking-form legend {
+  padding: 0 0.4rem;
+  font-family: var(--font-display);
+  color: var(--orange);
+}
+
+.booking-form label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--white-muted);
+}
+
+.booking-form input,
+.booking-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--plank-line);
+  border-radius: 4px;
+  background: var(--walnut-dark);
+  color: var(--white);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.booking-form textarea {
+  resize: vertical;
+}
+
+.booking-form input:focus,
+.booking-form textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 2px rgba(232, 119, 46, 0.3);
+}
+
+/* only flag empty required fields after someone tries to send */
+.booking-form.was-submitted input:invalid,
+.booking-form.was-submitted textarea:invalid {
+  border-color: #d9534f;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 1rem;
+}
+
+.form-row-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.req {
+  color: var(--orange);
+}
+
+.form-error {
+  margin: 0 0 0.5rem;
+  color: #f08a85;
+}
+
+button.button {
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .form-row,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid var(--orange);
+  border-radius: 4px;
+  background: var(--orange);
+  color: var(--walnut-dark);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: transparent;
+  color: var(--orange);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.button-note {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
   color: var(--white-muted);
 }
 
