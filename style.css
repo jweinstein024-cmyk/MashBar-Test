@@ -64,25 +64,31 @@ header {
   top: 0;
   z-index: 10;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem 1rem;
-  padding: 1rem 2rem;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
   background: rgba(27, 20, 15, 0.94);
   border-bottom: 1px solid var(--plank-line);
 }
 
 header h1 {
   margin: 0;
-  font-size: 1.6rem;
-  letter-spacing: 0.04em;
-  color: var(--orange);
+  line-height: 0;
+}
+
+/* logo is white on black; "screen" drops the black so it sits on the wood tone */
+.logo img {
+  display: block;
+  width: clamp(140px, 30vw, 200px);
+  height: auto;
+  mix-blend-mode: screen;
 }
 
 nav {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.25rem 1.25rem;
 }
 
@@ -264,6 +270,65 @@ strong {
   font-weight: 600;
 }
 
+/* drink menus as dropdowns */
+details.drinks {
+  margin-top: 1rem;
+  background: var(--walnut);
+  border: 1px solid var(--plank-line);
+  border-radius: 4px;
+}
+
+details.drinks summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+details.drinks summary::-webkit-details-marker {
+  display: none;
+}
+
+details.drinks summary h3 {
+  margin: 0;
+}
+
+/* orange chevron that flips when open */
+details.drinks summary::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  margin-right: 4px;
+  border-right: 2px solid var(--orange);
+  border-bottom: 2px solid var(--orange);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+details.drinks[open] summary::after {
+  transform: rotate(-135deg);
+}
+
+details.drinks summary:hover h3,
+details.drinks summary:focus-visible h3 {
+  color: var(--white);
+}
+
+details.drinks summary:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+details.drinks > :not(summary) {
+  margin: 0 1.25rem 1.25rem;
+}
+
+details.drinks .cocktails div {
+  background: var(--walnut-light);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -304,19 +369,6 @@ strong {
   margin: 0.25rem 0 0;
   color: var(--white-muted);
   font-size: 0.95rem;
-}
-
-.wine li {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  border-bottom: 1px dotted var(--plank-line);
-  padding: 0.4rem 0;
-}
-
-.wine li span:last-child {
-  color: var(--orange);
-  white-space: nowrap;
 }
 
 /* ---------- Footer ---------- */
