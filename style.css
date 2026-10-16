@@ -1,0 +1,337 @@
+/* Mash Bar — warm, low-lit lakeside lodge: brand orange & white over dark walnut, Edison-bulb glow */
+
+:root {
+  --walnut-dark: #1b140f;
+  --walnut: #251b14;
+  --walnut-light: #33261c;
+  --plank-line: #3e2e22;
+  --white: #fbf7f1;
+  --white-muted: #cdbfae;
+  --orange: #e8772e;
+  --brass: #b98a4a;
+  --pine: #4a5a43;
+
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Lora", Georgia, "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--white);
+  background-color: var(--walnut-dark);
+  /* faint horizontal planks, like a wood-paneled wall */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 119px,
+    rgba(0, 0, 0, 0.18) 119px,
+    rgba(0, 0, 0, 0.18) 120px
+  );
+}
+
+a {
+  color: var(--orange);
+  text-decoration-color: rgba(232, 119, 46, 0.45);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-color: var(--orange);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--white);
+}
+
+/* ---------- Header ---------- */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 1rem 2rem;
+  background: rgba(27, 20, 15, 0.94);
+  border-bottom: 1px solid var(--plank-line);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: var(--orange);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+nav a {
+  color: var(--white-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+  color: var(--orange);
+}
+
+/* ---------- Layout ---------- */
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+section {
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--plank-line);
+}
+
+section:last-child {
+  border-bottom: none;
+}
+
+section > h2 {
+  font-size: 1.9rem;
+  margin: 0 0 1rem;
+}
+
+/* small brass rule under section titles */
+section > h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin-top: 0.6rem;
+  background: var(--brass);
+}
+
+h3 {
+  margin: 2.5rem 0 0.75rem;
+  font-size: 1.35rem;
+  color: var(--orange);
+}
+
+h4 {
+  margin: 1.25rem 0 0.35rem;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white-muted);
+}
+
+/* ---------- Hero ---------- */
+
+#hero {
+  text-align: center;
+  padding: 1rem 0 4rem;
+}
+
+#hero h2 {
+  max-width: 640px;
+  margin: 1.5rem auto 1rem;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+}
+
+#hero h2::after {
+  margin: 1rem auto 0;
+}
+
+#hero p {
+  max-width: 560px;
+  margin: 0 auto;
+  color: var(--white-muted);
+  font-style: italic;
+}
+
+/* Edison bulbs strung across the full width of the page, below the header */
+.bulbs {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 0 1rem 1rem;
+  /* the wire the bulbs hang from */
+  border-top: 1px solid #4a3a2c;
+}
+
+.bulbs span {
+  position: relative;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 44px;
+  margin-top: var(--drop, 40px);
+}
+
+.bulbs svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: glow 6s ease-in-out infinite;
+  animation-delay: inherit;
+}
+
+/* cord */
+.bulbs span::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: var(--drop, 40px);
+  background: #4a3a2c;
+}
+
+/* soft warm halo around the filament, seen through the glass */
+.bulbs span::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 176, 74, 0.28) 0%, rgba(255, 176, 74, 0.08) 45%, transparent 70%);
+  pointer-events: none;
+}
+
+/* staggered cord lengths and glow timing, repeating every 4 bulbs */
+.bulbs span:nth-child(4n+1) { --drop: 28px; animation-delay: 0s; }
+.bulbs span:nth-child(4n+2) { --drop: 50px; animation-delay: 1.3s; }
+.bulbs span:nth-child(4n+3) { --drop: 38px; animation-delay: 2.6s; }
+.bulbs span:nth-child(4n)   { --drop: 58px; animation-delay: 0.7s; }
+
+/* fewer bulbs on narrower screens so they don't crowd */
+@media (max-width: 900px) {
+  .bulbs span:nth-child(n+11) { display: none; }
+}
+
+@media (max-width: 560px) {
+  .bulbs span:nth-child(n+7) { display: none; }
+}
+
+@keyframes glow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(0.82); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulbs svg { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Lists & menu ---------- */
+
+ul.plain {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.plain li {
+  padding: 0.2rem 0;
+}
+
+strong {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0 2rem;
+}
+
+.grid ul {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--white);
+}
+
+.grid li::marker {
+  color: var(--brass);
+}
+
+.cocktails {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.cocktails div {
+  padding: 1rem 1.25rem;
+  background: var(--walnut);
+  border: 1px solid var(--plank-line);
+  border-radius: 4px;
+}
+
+.cocktails dt {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--orange);
+}
+
+.cocktails dd {
+  margin: 0.25rem 0 0;
+  color: var(--white-muted);
+  font-size: 0.95rem;
+}
+
+.wine li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px dotted var(--plank-line);
+  padding: 0.4rem 0;
+}
+
+.wine li span:last-child {
+  color: var(--orange);
+  white-space: nowrap;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--white-muted);
+  font-size: 0.9rem;
+  background: var(--walnut);
+  border-top: 1px solid var(--plank-line);
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 0.75rem 1rem;
+  }
+}

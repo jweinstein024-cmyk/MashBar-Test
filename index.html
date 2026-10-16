@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mash Bar | East Lansing Live Music &amp; Bourbon &amp; Whiskey Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Mash Bar</h1>
+    <nav>
+      <a href="#visit">Visit</a>
+      <a href="#music">Music</a>
+      <a href="#menu">Drinks</a>
+      <a href="#play">Play at Mash</a>
+      <a href="#parties">Private Parties</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- One clear-glass Edison bulb, reused across the strand -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="filament-glow" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="1.2" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <symbol id="edison-bulb" viewBox="0 0 30 50">
+        <!-- brass socket -->
+        <rect x="10" y="0" width="10" height="8" rx="1" fill="#b98a4a"/>
+        <path d="M10 3h10M10 5.5h10" stroke="#7a5a2e" stroke-width="0.6"/>
+        <!-- clear glass -->
+        <path d="M11 8 C11 14 4 18 4 30 A11 11 0 0 0 26 30 C26 18 19 14 19 8 Z"
+              fill="rgba(255,236,210,0.07)" stroke="rgba(255,236,210,0.45)" stroke-width="0.7"/>
+        <!-- glass highlight -->
+        <path d="M8 24 C8 20 10 17 12 15" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.8" stroke-linecap="round"/>
+        <!-- support wires -->
+        <path d="M13.5 8.5 L11.5 29 M16.5 8.5 L18.5 29 M15 8.5 L15 34" fill="none" stroke="rgba(200,180,150,0.6)" stroke-width="0.5"/>
+        <!-- glowing filament -->
+        <polyline points="11.5,29 12.8,33.5 14.1,28 15.4,33.5 16.7,28 18,33.5 18.5,29"
+                  fill="none" stroke="#ffb04a" stroke-width="0.9" stroke-linejoin="round"
+                  filter="url(#filament-glow)"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="bulbs" aria-hidden="true">
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+    <span><svg viewBox="0 0 30 50"><use href="#edison-bulb"/></svg></span>
+  </div>
+
+  <main>
+    <section id="hero">
+      <h2>East Lansing Live Music &amp; Mash Bourbon &amp; Whiskey Bar</h2>
+      <p>We bring in great local &amp; regional acts, fantastic live music entertainment is always guaranteed.</p>
+    </section>
+
+    <section id="visit">
+      <h2>Visit Us</h2>
+      <p>
+        212 Albert St,<br>
+        East Lansing, MI 48823<br>
+        <a href="tel:5178582100">517.858.2100</a>
+      </p>
+
+      <h3>Hours</h3>
+      <ul class="plain">
+        <li>Closed Sunday &amp; Monday</li>
+        <li>Tuesday 6pm–10pm</li>
+        <li>Wednesday – Saturday 6pm–2am</li>
+      </ul>
+    </section>
+
+    <section id="music">
+      <h2>Music</h2>
+      <ul class="plain">
+        <li><strong>Wild West Wednesdays:</strong> Live Music 8pm–10pm, DJ 10pm–2am</li>
+        <li><strong>Thursday:</strong> Karaoke 9–12</li>
+        <li><strong>Friday:</strong> Live Music at 9:30pm</li>
+        <li><strong>Saturday:</strong> DJ at 9:30pm</li>
+      </ul>
+    </section>
+
+    <section id="menu">
+      <h2>Drinks</h2>
+
+      <h3>Craft</h3>
+      <dl class="cocktails">
+        <div>
+          <dt>Midnight Buzz</dt>
+          <dd>Vodka, Grind Espresso Rum, Frangelico, Simple Syrup, Coffee, Choc Syrup</dd>
+        </div>
+        <div>
+          <dt>Hibiscus Hippie</dt>
+          <dd>Hibiscus Syrup, Bourbon, Pineapple Juice, Ginger Beer</dd>
+        </div>
+        <div>
+          <dt>Peachy Paradise Sangria</dt>
+          <dd>Riesling, Vodka, Peach Schnapps, Pineapple Juice, Peach Syrup</dd>
+        </div>
+        <div>
+          <dt>Southern Sunrise</dt>
+          <dd>Whiskey, OJ, Grenadine</dd>
+        </div>
+        <div>
+          <dt>Pixie Stick</dt>
+          <dd>Aperol, Apricot Brandy, Lemon Juice, Simple Syrup, OJ</dd>
+        </div>
+        <div>
+          <dt>Guava Glow</dt>
+          <dd>Tequila, Guava Syrup, Lime Juice, Simple Syrup, Triple Sec</dd>
+        </div>
+      </dl>
+
+      <h3>Beer</h3>
+      <div class="grid">
+        <div>
+          <h4>Draft</h4>
+          <ul>
+            <li>Sparta</li>
+            <li>Coors Lt</li>
+            <li>Modelo</li>
+            <li>Mich Ultra</li>
+            <li>Bud Light</li>
+            <li>Miller Lite</li>
+            <li>Yuengling</li>
+            <li>Angry Orchard</li>
+            <li>Truly Wildberry</li>
+            <li>Twisted Tea</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Bottles</h4>
+          <ul>
+            <li>Blue Moon</li>
+            <li>Bud Lt</li>
+            <li>Bud</li>
+            <li>Miller Lt</li>
+            <li>Coors Lt</li>
+            <li>Corona Extra</li>
+            <li>Modelo</li>
+            <li>Stella</li>
+            <li>Labatt Blue</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Cans</h4>
+          <ul>
+            <li>Guinness</li>
+            <li>Long Drink Traditional</li>
+            <li>Long Drink Zero</li>
+            <li>Long Drink Peach</li>
+            <li>Long Drink Zero Pineapple</li>
+            <li>High Noon Pineapple</li>
+            <li>High Noon Grapefruit</li>
+            <li>High Noon Black Cherry</li>
+            <li>High Noon Mango</li>
+            <li>NUTRL Orange</li>
+            <li>NUTRL Strawberry</li>
+            <li>Lucky One Lemonade</li>
+            <li>Lucky One Blueberry Lemonade</li>
+            <li>CAAMP Lime Marg</li>
+            <li>CAAMP Canteen Punch</li>
+            <li>CAAMP Huckleberry Lemon</li>
+            <li>CAAMP Sunburst</li>
+          </ul>
+        </div>
+        <div>
+          <h4>N/A Beer</h4>
+          <ul>
+            <li>Heineken 0.0</li>
+            <li>Michelob Ultra Zero</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Libations</h3>
+      <div class="grid">
+        <div>
+          <h4>Vodka</h4>
+          <ul>
+            <li>Deep Eddy Lemon</li>
+            <li>Deep Eddy Ruby Red</li>
+            <li>Grey Goose</li>
+            <li>Pearl Blueberry</li>
+            <li>Pinnacle Whipped</li>
+            <li>Pinnacle Raspberry</li>
+            <li>Pinnacle Grape</li>
+            <li>Pinnacle Pumpkin Spice</li>
+            <li>McCormick Citrus</li>
+            <li>Mr. Boston’s (Well)</li>
+            <li>Tito’s</li>
+            <li>Smirnoff Watermelon</li>
+            <li>Smirnoff Caramel</li>
+            <li>Smirnoff Strawberry</li>
+            <li>Skyy</li>
+            <li>Absolut</li>
+            <li>Stoli</li>
+            <li>La French</li>
+            <li>New Amsterdam Pineapple</li>
+            <li>New Amsterdam Peach</li>
+            <li>New Amsterdam Mango</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Gin</h4>
+          <ul>
+            <li>Hendricks</li>
+            <li>Mr. Boston’s (Well)</li>
+            <li>Tanqueray</li>
+          </ul>
+          <h4>Rum</h4>
+          <ul>
+            <li>Bacardi</li>
+            <li>Bacardi Dragonfruit</li>
+            <li>Captain</li>
+            <li>Goslings Black Seal</li>
+            <li>Parrot Bay Coconut</li>
+            <li>Cruzan Pineapple</li>
+          </ul>
+          <h4>Tequila</h4>
+          <ul>
+            <li>1800</li>
+            <li>Casamigos Anejo</li>
+            <li>Don Julio</li>
+            <li>Espolon Blanco</li>
+            <li>Jose Gold</li>
+            <li>Jose Silver</li>
+            <li>Patron</li>
+            <li>Torada (Well)</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Bourbon</h4>
+          <ul>
+            <li>Old Crow (Well)</li>
+            <li>Jim Beam</li>
+            <li>Knob Creek</li>
+            <li>Makers Mark</li>
+            <li>Old Forester</li>
+            <li>Woodford Reserve</li>
+            <li>Woodford Double Oak</li>
+            <li>Buffalo Trace</li>
+            <li>Eagle Rare 10 yr</li>
+            <li>Angels Envy</li>
+            <li>Evan Williams</li>
+            <li>Detroit City Honey</li>
+            <li>Black Saddle 12 yr</li>
+            <li>Calumet 15 yr</li>
+            <li>Widow Jane 10 yr</li>
+            <li>1792 Small Batch</li>
+            <li>Stillhouse Black</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Whiskey</h4>
+          <ul>
+            <li>Bankers (Well)</li>
+            <li>Crown Apple</li>
+            <li>Crown Peach</li>
+            <li>Crown Royal</li>
+            <li>Fireball</li>
+            <li>Jack</li>
+            <li>Jameson</li>
+            <li>Skrewball PButter</li>
+            <li>Tullamore Dew</li>
+            <li>Doughball Cookie Dough</li>
+            <li>Redbreast 15 yr</li>
+            <li>Writers Tears Copper Pot</li>
+            <li>Yamato</li>
+            <li>Stillhouse Peach Tea</li>
+            <li>Lusty Claw</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Scotch</h4>
+          <ul>
+            <li>Glenfiddich</li>
+            <li>Johnny Walker</li>
+            <li>Macallan 12 yr</li>
+            <li>Glenlivet 12 yr</li>
+            <li>Lagavulin 8 yr</li>
+          </ul>
+          <h4>Rye</h4>
+          <ul>
+            <li>Rittenhouse Rye</li>
+            <li>Bulleit Rye</li>
+            <li>Russel’s Rye</li>
+            <li>High West Double</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Liqueurs / Other</h4>
+          <ul>
+            <li>Amaretto</li>
+            <li>Aperol</li>
+            <li>Bailey’s</li>
+            <li>Banana</li>
+            <li>Blue Curacao</li>
+            <li>Razzmatazz</li>
+            <li>Cointreau</li>
+            <li>Crème De Cacao</li>
+            <li>Crème de Menthe</li>
+            <li>Sour Watermelon</li>
+            <li>Sour Apple</li>
+            <li>Sour Strawberry</li>
+            <li>Butterscotch</li>
+            <li>Melon</li>
+            <li>Peachtree</li>
+            <li>Apricot Brandy</li>
+            <li>Frangelico</li>
+            <li>Grand Marnier</li>
+            <li>Hennessey</li>
+            <li>Jager</li>
+            <li>Kaluha</li>
+            <li>Luxardo Cherry</li>
+            <li>Midori</li>
+            <li>Pama</li>
+            <li>Rumchata</li>
+            <li>Rumpleminze</li>
+            <li>Triple Sec</li>
+            <li>Licor 43</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Wine</h3>
+      <ul class="plain wine">
+        <li><span>Malbec – Trapiche Oak Cask</span> <span>$8/glass</span></li>
+        <li><span>Cab Sav – Gen 5</span> <span>$8/glass</span></li>
+        <li><span>Merlot – Gen 5</span> <span>$8/glass</span></li>
+        <li><span>Pinot Noir – Rickshaw</span> <span>$7/glass</span></li>
+        <li><span>Chardonnay – Rickshaw</span> <span>$7/glass</span></li>
+        <li><span>Pinot Grigio – Moncaro Organic</span> <span>$7/glass</span></li>
+        <li><span>Sauv Blanc – Gen 5</span> <span>$8/glass</span></li>
+        <li><span>Rose – Wolf</span> <span>$9/glass</span></li>
+        <li><span>Prosecco – Vivace (splits)</span> <span>$8</span></li>
+      </ul>
+    </section>
+
+    <section id="play">
+      <h2>Interested in Playing at Mash?</h2>
+      <p>We bring in great local &amp; regional acts. Send us your info and we may be in touch:</p>
+      <ul>
+        <li>Artist/Band Name</li>
+        <li>Genre</li>
+        <li>Website</li>
+        <li>Link to video of your band playing</li>
+        <li>Social (Facebook, Instagram, TikTok)</li>
+        <li>Contact information (phone &amp; email)</li>
+      </ul>
+    </section>
+
+    <section id="parties">
+      <h2>Private Parties at Mash</h2>
+      <p>Jolly Pumpkin makes the food! We are happy to customize a menu just right for your event. Let us know what looks good &amp; we’ll put together a quote for you!</p>
+      <p><a href="https://east-lansing.jollypumpkin.com/private-party/" target="_blank" rel="noopener">Learn more &raquo;</a></p>
+    </section>
+
+    <section id="contact">
+      <h2>Stay Up to Date</h2>
+      <p>Phone: <a href="tel:5178582100">517.858.2100</a></p>
+      <p>Address: 212 Albert St, East Lansing, MI 48823</p>
+      <p>
+        <a href="https://www.facebook.com/profile.php?id=61555228272809" target="_blank" rel="noopener">Facebook</a>
+        &middot;
+        <a href="https://www.instagram.com/mash.eastlansing/" target="_blank" rel="noopener">Instagram</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Mash Bar &middot; East Lansing, MI</p>
+  </footer>
+
+</body>
+</html>
