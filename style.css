@@ -21,6 +21,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* stop menu-link jumps just below the sticky header; --header-height is set by header.js */
+  scroll-padding-top: calc(var(--header-height, 200px) + 0.75rem);
 }
 
 body {
@@ -302,34 +304,48 @@ h4 {
   display: none;
 }
 
-.slideshow-dots {
+/* previous/next arrows on the left and right of the photo */
+.slideshow-arrow {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.6rem;
+  top: 50%;
   z-index: 1;
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.slideshow-dots button {
-  width: 9px;
-  height: 9px;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
-  border: 1px solid var(--white);
+  border: 1px solid rgba(251, 247, 241, 0.5);
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(27, 20, 15, 0.6);
+  color: var(--white);
+  font-size: 2rem;
+  line-height: 1;
   cursor: pointer;
+  transform: translateY(-50%);
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
-.slideshow-dots button.is-active {
+.slideshow-arrow span {
+  margin-top: -0.2rem; /* optically center the chevron */
+}
+
+.slideshow-prev {
+  left: 0.6rem;
+}
+
+.slideshow-next {
+  right: 0.6rem;
+}
+
+.slideshow-arrow:hover,
+.slideshow-arrow:focus-visible {
   background: var(--orange);
   border-color: var(--orange);
+  color: var(--walnut-dark);
 }
 
-.slideshow-dots button:focus-visible {
-  outline: 2px solid var(--orange);
+.slideshow-arrow:focus-visible {
+  outline: 2px solid var(--white);
   outline-offset: 2px;
 }
 
@@ -665,7 +681,8 @@ details.drinks > :not(summary) {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  /* wide enough for the longest names, e.g. "Long Drink Pineapple Zero Sugar" */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
   gap: 0 2rem;
 }
 
@@ -673,6 +690,17 @@ details.drinks > :not(summary) {
   margin: 0;
   padding-left: 1rem;
   color: var(--white);
+}
+
+/* each drink stays on one line */
+.grid li {
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  .grid li {
+    font-size: 0.9rem;
+  }
 }
 
 .grid li::marker {
@@ -754,6 +782,11 @@ ul.hours li:last-child {
 
 .booking-form textarea {
   resize: vertical;
+}
+
+/* the real file picker stays hidden; the dropbox button opens it */
+.booking-form input[hidden] {
+  display: none;
 }
 
 .booking-form input:focus,
@@ -910,6 +943,149 @@ ul.hours li:last-child {
   font-size: 1.1rem;
   font-weight: 600;
   line-height: 1;
+}
+
+/* "Sample of your band playing" dropbox */
+.dropzone {
+  margin-top: 0.3rem;
+  padding: 0.75rem;
+  border: 2px dashed var(--plank-line);
+  border-radius: 6px;
+  background: var(--walnut-dark);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.dropzone.is-dragging {
+  border-color: var(--orange);
+  background: rgba(232, 119, 46, 0.1);
+}
+
+.booking-form.was-submitted .dropzone.is-invalid {
+  border-color: #d9534f;
+}
+
+.dropzone-pick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  width: 100%;
+  padding: 1rem 0.5rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--white);
+  font: inherit;
+  cursor: pointer;
+}
+
+.dropzone-pick:hover,
+.dropzone-pick:focus-visible {
+  background: rgba(232, 119, 46, 0.08);
+  outline: none;
+}
+
+.dropzone-pick:focus-visible {
+  box-shadow: 0 0 0 2px var(--orange);
+}
+
+.dropzone-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--orange);
+}
+
+.dropzone-title {
+  font-size: 0.95rem;
+}
+
+.dropzone-sub {
+  font-size: 0.8rem;
+  color: var(--orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dropzone-link {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.dropzone-link input {
+  flex: 1;
+  margin-top: 0;
+}
+
+.dropzone-add {
+  flex: 0 0 auto;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--orange);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--orange);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.dropzone-add:hover,
+.dropzone-add:focus-visible {
+  background: rgba(232, 119, 46, 0.12);
+}
+
+.sample-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.sample-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.sample-kind {
+  flex: 0 0 auto;
+  padding: 0.05rem 0.4rem;
+  border-radius: 3px;
+  background: var(--walnut-light);
+  color: var(--orange);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sample-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--white);
+}
+
+.sample-list .remove-link {
+  margin-top: 0;
+}
+
+.field-error {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: #f08a85;
+}
+
+.form-notice {
+  margin: 0 0 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border-left: 3px solid var(--orange);
+  background: rgba(232, 119, 46, 0.1);
+  color: var(--white);
+  font-size: 0.9rem;
 }
 
 .form-row {

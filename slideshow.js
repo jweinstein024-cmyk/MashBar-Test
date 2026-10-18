@@ -11,27 +11,33 @@ function startSlideshow(show) {
   let current = 0;
   let timer = null;
 
-  const dots = document.createElement("div");
-  dots.className = "slideshow-dots";
-  slides.forEach((img, i) => {
-    img.classList.add("slide");
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.setAttribute("aria-label", "Show photo " + (i + 1));
-    dot.addEventListener("click", () => {
-      goTo(i);
-      restart();
-    });
-    dots.appendChild(dot);
+  slides.forEach((img) => img.classList.add("slide"));
+
+  // left/right arrows (the slideshow is paused while hovered or focused,
+  // so clicking an arrow just changes the photo)
+  function arrow(direction, label, symbol) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "slideshow-arrow slideshow-" + direction;
+    button.setAttribute("aria-label", label);
+    button.innerHTML = '<span aria-hidden="true">' + symbol + "</span>";
+    button.addEventListener("click", () => goTo(current + (direction === "next" ? 1 : -1)));
+    return button;
+  }
+  if (slides.length > 1) {
+    show.append(arrow("prev", "Previous photo", "&#8249;"), arrow("next", "Next photo", "&#8250;"));
+  }
+
+  // keyboard: left/right arrow keys while an arrow button has focus
+  show.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") goTo(current - 1);
+    if (event.key === "ArrowRight") goTo(current + 1);
   });
-  if (slides.length > 1) show.appendChild(dots);
 
   function goTo(i) {
     slides[current].classList.remove("is-active");
-    dots.children[current].classList.remove("is-active");
     current = (i + slides.length) % slides.length;
     slides[current].classList.add("is-active");
-    dots.children[current].classList.add("is-active");
   }
 
   function stop() {
