@@ -134,6 +134,11 @@ function addPendingSampleLink() {
 }
 
 if (dropzone) {
+  // the full placeholder gets cut off on phones, so use a shorter one there
+  if (window.matchMedia("(max-width: 600px)").matches) {
+    sampleLink.placeholder = "SoundCloud or Spotify link";
+  }
+
   samplePick.addEventListener("click", () => sampleInput.click());
   sampleInput.addEventListener("change", () => {
     addSampleFiles(sampleInput.files);

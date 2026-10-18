@@ -15,7 +15,10 @@
     <h1 class="logo">
       <a href="#hero"><img src="images/mash%20EL.png" alt="Mash Bar — a bourbon, whiskey &amp; beer bar" width="477" height="246"></a>
     </h1>
-    <nav>
+    <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <span class="menu-bars" aria-hidden="true"></span>
+    </button>
+    <nav id="site-nav">
       <a href="#calendar">Calendar</a>
       <a href="#menu">Drinks</a>
       <a href="#music">Live Music</a>
@@ -123,7 +126,7 @@
     <section id="menu">
       <h2>Drinks</h2>
 
-      <details class="drinks">
+      <details class="drinks" name="drink-menu">
         <summary><h3>Beer</h3></summary>
         <div class="grid">
           <div>
@@ -165,7 +168,7 @@
         </div>
       </details>
 
-      <details class="drinks">
+      <details class="drinks" name="drink-menu">
         <summary><h3>Seltzer</h3></summary>
         <div class="grid">
           <ul>
@@ -180,7 +183,7 @@
         </div>
       </details>
 
-      <details class="drinks">
+      <details class="drinks" name="drink-menu">
         <summary><h3>Spirits</h3></summary>
         <div class="grid">
           <div>
@@ -365,8 +368,8 @@
                 <input type="file" id="sample-files" multiple accept="audio/*,video/*" hidden>
                 <button type="button" class="dropzone-pick" id="sample-pick" aria-describedby="sample-label">
                   <span class="dropzone-icon" aria-hidden="true">&#8679;</span>
-                  <span class="dropzone-title">Drag &amp; drop audio or video files here</span>
-                  <span class="dropzone-sub">or click to browse</span>
+                  <span class="dropzone-title"><span class="dropzone-desktop">Drag &amp; drop audio or video files here</span><span class="dropzone-touch">Tap to add audio or video files</span></span>
+                  <span class="dropzone-sub dropzone-desktop">or click to browse</span>
                 </button>
                 <div class="dropzone-link">
                   <input type="text" id="sample-link" inputmode="url" placeholder="…or paste a link (SoundCloud, Spotify)" aria-labelledby="sample-label">
