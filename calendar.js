@@ -43,17 +43,21 @@ const SCHEDULE = {
 
 // The regular weekly lineup (0 = Sunday). A night with `band: true`
 // shows the band name from SCHEDULE. `deal` is that weekday's standing
-// deal; a deal typed into SCHEDULE for a date replaces it.
+// deal; a deal typed into SCHEDULE for a date replaces it. `eventFirst`
+// lists that night's event above the deal and makes the event the orange line.
+// `noDeal` leaves the deal line off that night entirely. `footnote` is a
+// small note centered at the bottom of that night's box.
 const WEEKLY = {
   0: { closed: true },
   1: { closed: true },
-  2: { events: [] },
+  2: { deal: "$20 Beer Towers", eventFirst: true, events: [{ what: "Trivia" }] },
   3: { deal: "Half Off Everything",
        events: [{ time: "8pm–10pm", what: "Live Music", band: true },
                 { time: "10pm–Close", what: "DJ" }] },
-  4: { events: [{ time: "9pm–12am", what: "Karaoke" }] },
-  5: { events: [{ time: "9:30pm", what: "Live Music", band: true }] },
-  6: { events: [{ time: "9:30pm", what: "DJ" }] },
+  4: { deal: "$4 Doubles", events: [{ time: "9pm–12am", what: "Karaoke" }] },
+  5: { noDeal: true, events: [{ time: "9pm–12am", what: "Live Music", band: true }] },
+  6: { deal: "Game Day Specials TBA", events: [{ what: "DJ Time TBA" }],
+       footnote: "*Schedule Subject to Change*" },
 };
 
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -118,19 +122,31 @@ function renderCalendar() {
     }
 
     const deal = info.deal || plan.deal;
-    cell.appendChild(el("p", deal ? "cal-deal" : "cal-deal cal-tba", deal || "Deal TBA"));
+    const dealLine = el("p", deal ? "cal-deal" : "cal-deal cal-tba", deal || "Deal TBA");
+    const showDeal = !plan.noDeal || Boolean(info.deal);
+    if (plan.eventFirst) cell.classList.add("cal-event-first");
+    else if (showDeal) cell.appendChild(dealLine);
 
     for (const event of plan.events) {
       const line = el("p", "cal-event");
-      line.appendChild(el("span", "cal-time", event.time));
-      line.appendChild(document.createTextNode(" " + event.what));
+      if (event.time) {
+        line.appendChild(el("span", "cal-time", event.time));
+        line.appendChild(document.createTextNode(" "));
+      }
+      line.appendChild(document.createTextNode(event.what));
       cell.appendChild(line);
       if (event.band) {
         cell.appendChild(el("p", info.band ? "cal-band" : "cal-band cal-tba", info.band || "Band TBA"));
       }
     }
 
+    if (plan.eventFirst && showDeal) cell.appendChild(dealLine);
+
     if (isHalloween) cell.appendChild(pumpkin());
+    if (plan.footnote) {
+      cell.classList.add("cal-has-footnote");
+      cell.appendChild(el("p", "cal-footnote", plan.footnote));
+    }
     grid.appendChild(cell);
   }
 }

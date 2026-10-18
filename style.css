@@ -524,11 +524,40 @@ h4 {
   color: var(--orange);
 }
 
+/* nights where the event leads (Tuesday Trivia): event orange, deal white */
+.cal-event-first .cal-event {
+  color: var(--orange);
+}
+
+.cal-event-first .cal-deal:not(.cal-tba) {
+  color: var(--white);
+}
+
 .cal-tba {
   font-style: italic;
   font-weight: 400;
   color: var(--white-muted);
   opacity: 0.7;
+}
+
+/* small note pinned to the bottom middle of a box (Saturdays) */
+.cal-has-footnote {
+  display: flex;
+  flex-direction: column;
+}
+
+.cal-day .cal-footnote {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  text-align: center;
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--white-muted);
+}
+
+/* Halloween falls on a Saturday: keep the note just under the pumpkin */
+.cal-day .cal-pumpkin + .cal-footnote {
+  margin-top: 0;
 }
 
 .cal-closed {
