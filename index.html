@@ -24,7 +24,6 @@
       <a href="#music">Live Music</a>
       <a href="#play">Play at Mash</a>
       <a href="#parties">Private Parties</a>
-      <a href="#contact">Contact</a>
       <a href="#visit">Visit</a>
     </nav>
   </header>
@@ -322,124 +321,146 @@
         <div class="slideshow" aria-label="Photos from Mash" role="region">
           <img src="images/slideshow/DJ%20Pic%201.jpeg" alt="DJ in headphones mixing on a Pioneer controller at Mash">
           <img src="images/slideshow/DJ%20Pic%202.jpeg" alt="Four close-ups of DJs' hands working the mixer and decks">
-          <img src="images/slideshow/DJ%20Pic%203.jpeg" alt="Two DJs at the decks beneath the lit-up Mash sign on the wood wall">
+          <img src="images/slideshow/DJ%20Pic%203.jpeg" alt="Two DJs at the decks beneath the lit-up Mash sign on the wood wall" style="object-position: 50% 0%">
           <p class="slideshow-empty">Photos coming soon</p>
         </div>
       </div>
     </section>
 
     <section id="play">
-      <h2>Interested in Playing at Mash?</h2>
-      <p>We bring in great local &amp; regional acts. Click below to open the booking form, fill it out, and we may be in touch.</p>
+      <div class="music-layout layout-flip">
+        <div>
+          <h2>Interested in Playing at Mash?</h2>
+          <p>We bring in great local &amp; regional acts. Click below to open the booking form, fill it out, and we may be in touch.</p>
 
-      <button type="button" class="button" id="open-booking">Open Booking Form</button>
+          <button type="button" class="button" id="open-booking">Open Booking Form</button>
 
-      <dialog id="booking-dialog" class="booking-dialog" aria-labelledby="booking-title">
-        <div class="dialog-head">
-          <h3 id="booking-title">Booking Form</h3>
-          <button type="button" class="dialog-close" id="close-booking" aria-label="Close booking form">&times;</button>
+          <dialog id="booking-dialog" class="booking-dialog" aria-labelledby="booking-title">
+            <div class="dialog-head">
+              <h3 id="booking-title">Booking Form</h3>
+              <button type="button" class="dialog-close" id="close-booking" aria-label="Close booking form">&times;</button>
+            </div>
+            <form id="booking-form" class="booking-form" novalidate>
+              <fieldset>
+                <legend>Your act</legend>
+                <div class="form-row">
+                  <label>Artist/Band Name <span class="req">*</span>
+                    <input type="text" name="band" required autocomplete="organization">
+                  </label>
+                  <label>Genre <span class="req">*</span>
+                    <input type="text" name="genre" required>
+                  </label>
+                </div>
+                <div class="field">
+                  <span class="field-label" id="links-label">Website</span>
+                  <span class="field-hint" id="links-hint">Your website or social pages (Facebook, Instagram, TikTok, YouTube)</span>
+                  <div class="link-list" id="link-list">
+                    <div class="link-row">
+                      <input type="text" name="links" inputmode="url" placeholder="Paste a link" aria-labelledby="links-label" aria-describedby="links-hint">
+                    </div>
+                  </div>
+                  <button type="button" class="add-link" id="add-link">
+                    <span class="add-link-icon" aria-hidden="true">+</span> Add another link
+                  </button>
+                </div>
+                <div class="field">
+                  <span class="field-label" id="sample-label">Sample of your band playing <span class="req">*</span></span>
+                  <div class="dropzone" id="sample-drop">
+                    <input type="file" id="sample-files" multiple accept="audio/*,video/*" hidden>
+                    <button type="button" class="dropzone-pick" id="sample-pick" aria-describedby="sample-label">
+                      <span class="dropzone-icon" aria-hidden="true">&#8679;</span>
+                      <span class="dropzone-title"><span class="dropzone-desktop">Drag &amp; drop audio or video files here</span><span class="dropzone-touch">Tap to add audio or video files</span></span>
+                      <span class="dropzone-sub dropzone-desktop">or click to browse</span>
+                    </button>
+                    <div class="dropzone-link">
+                      <input type="text" id="sample-link" inputmode="url" placeholder="…or paste a link (SoundCloud, Spotify)" aria-labelledby="sample-label">
+                      <button type="button" class="dropzone-add" id="sample-add">Add</button>
+                    </div>
+                  </div>
+                  <ul class="sample-list" id="sample-list"></ul>
+                  <p class="field-error" id="sample-error" hidden>Add at least one file or link.</p>
+                </div>
+              </fieldset>
+
+
+              <fieldset>
+                <legend>Contact information</legend>
+                <div class="form-row">
+                  <label>Phone <span class="req">*</span>
+                    <input type="tel" name="phone" required autocomplete="tel">
+                  </label>
+                  <label>Your email <span class="req">*</span>
+                    <input type="email" name="email" required autocomplete="email">
+                  </label>
+                </div>
+                <label>Additional information
+                  <textarea name="info" rows="4"></textarea>
+                </label>
+              </fieldset>
+
+              <p class="form-notice" id="attach-notice" role="status" hidden></p>
+              <p class="form-error" role="alert" hidden>Please fill in the required fields marked with *.</p>
+              <button type="submit" class="button">Send Submission</button>
+              <p class="button-note"><span class="req">*</span> required. Sending opens your email app with your answers filled in.</p>
+            </form>
+          </dialog>
         </div>
-        <form id="booking-form" class="booking-form" novalidate>
-          <fieldset>
-            <legend>Your act</legend>
-            <div class="form-row">
-              <label>Artist/Band Name <span class="req">*</span>
-                <input type="text" name="band" required autocomplete="organization">
-              </label>
-              <label>Genre <span class="req">*</span>
-                <input type="text" name="genre" required>
-              </label>
-            </div>
-            <div class="field">
-              <span class="field-label" id="links-label">Website</span>
-              <span class="field-hint" id="links-hint">Your website or social pages (Facebook, Instagram, TikTok, YouTube)</span>
-              <div class="link-list" id="link-list">
-                <div class="link-row">
-                  <input type="text" name="links" inputmode="url" placeholder="Paste a link" aria-labelledby="links-label" aria-describedby="links-hint">
-                </div>
-              </div>
-              <button type="button" class="add-link" id="add-link">
-                <span class="add-link-icon" aria-hidden="true">+</span> Add another link
-              </button>
-            </div>
-            <div class="field">
-              <span class="field-label" id="sample-label">Sample of your band playing <span class="req">*</span></span>
-              <div class="dropzone" id="sample-drop">
-                <input type="file" id="sample-files" multiple accept="audio/*,video/*" hidden>
-                <button type="button" class="dropzone-pick" id="sample-pick" aria-describedby="sample-label">
-                  <span class="dropzone-icon" aria-hidden="true">&#8679;</span>
-                  <span class="dropzone-title"><span class="dropzone-desktop">Drag &amp; drop audio or video files here</span><span class="dropzone-touch">Tap to add audio or video files</span></span>
-                  <span class="dropzone-sub dropzone-desktop">or click to browse</span>
-                </button>
-                <div class="dropzone-link">
-                  <input type="text" id="sample-link" inputmode="url" placeholder="…or paste a link (SoundCloud, Spotify)" aria-labelledby="sample-label">
-                  <button type="button" class="dropzone-add" id="sample-add">Add</button>
-                </div>
-              </div>
-              <ul class="sample-list" id="sample-list"></ul>
-              <p class="field-error" id="sample-error" hidden>Add at least one file or link.</p>
-            </div>
-          </fieldset>
 
-
-          <fieldset>
-            <legend>Contact information</legend>
-            <div class="form-row">
-              <label>Phone <span class="req">*</span>
-                <input type="tel" name="phone" required autocomplete="tel">
-              </label>
-              <label>Your email <span class="req">*</span>
-                <input type="email" name="email" required autocomplete="email">
-              </label>
-            </div>
-            <label>Additional information
-              <textarea name="info" rows="4"></textarea>
-            </label>
-          </fieldset>
-
-          <p class="form-notice" id="attach-notice" role="status" hidden></p>
-          <p class="form-error" role="alert" hidden>Please fill in the required fields marked with *.</p>
-          <button type="submit" class="button">Send Submission</button>
-          <p class="button-note"><span class="req">*</span> required. Sending opens your email app with your answers filled in.</p>
-        </form>
-      </dialog>
+        <!-- Band photo slideshow: add more photos as extra <img> lines.
+             style="object-position: X% Y%" picks which part of a photo stays in the square frame. -->
+        <div class="slideshow" aria-label="Live bands at Mash" role="region">
+          <img src="images/mash%20live%20band.jpg" alt="Guitarist in an elf costume playing to a cheering, costumed crowd at Mash" style="object-position: 60% 50%">
+          <img src="images/mash%20live%20band%202%20.jpeg" alt="Singer in a backwards cap belting into the mic under blue stage lights" style="object-position: 50% 30%">
+          <img src="images/mash%20live%20band%203.jpg" alt="Band with singer, guitarist and sax player performing under the lit-up Mash sign" style="object-position: 40% 50%">
+          <p class="slideshow-empty">Photos coming soon</p>
+        </div>
+      </div>
     </section>
 
     <section id="parties">
-      <h2>Private Parties at Mash</h2>
-      <p>Jolly Pumpkin makes the food! We are happy to customize a menu just right for your event. Let us know what looks good &amp; we’ll put together a quote for you!</p>
-      <p><a href="https://east-lansing.jollypumpkin.com/private-party/" target="_blank" rel="noopener">Learn more &raquo;</a></p>
-    </section>
+      <div class="music-layout">
+        <div>
+          <h2>Private Parties at Mash</h2>
+          <p>Jolly Pumpkin makes the food! We are happy to customize a menu just right for your event. Let us know what looks good &amp; we’ll put together a quote for you!</p>
+          <p><a href="https://east-lansing.jollypumpkin.com/private-party/" target="_blank" rel="noopener">Learn more &raquo;</a></p>
+        </div>
 
-    <section id="contact">
-      <h2>Stay Up to Date</h2>
-      <p>Phone: <a href="tel:5178582100">517.858.2100</a></p>
-      <p>Address: 212 Albert Ave, East Lansing, MI 48823</p>
-      <p>
-        <a href="https://www.facebook.com/profile.php?id=61555228272809" target="_blank" rel="noopener">Facebook</a>
-        &middot;
-        <a href="https://www.instagram.com/mash.eastlansing/" target="_blank" rel="noopener">Instagram</a>
-      </p>
+        <!-- Private party photo slideshow: photos live in images/slideshow rentals/ -->
+        <div class="slideshow" aria-label="Private party space at Mash" role="region">
+          <img src="images/slideshow%20rentals/mash%20party%20rent%201.jpeg" alt="The lit-up Mash sign on the wood-paneled wall, seen from the balcony" style="object-position: 50% 40%">
+          <img src="images/slideshow%20rentals/mash%20party%20rent%202.jpeg" alt="Mash's main floor with high-top tables, the bar and the upstairs balcony">
+          <p class="slideshow-empty">Photos coming soon</p>
+        </div>
+      </div>
     </section>
 
     <section id="visit">
-      <h2>Visit Us</h2>
-      <p>
-        212 Albert Ave,<br>
-        East Lansing, MI 48823<br>
-        <a href="tel:5178582100">517.858.2100</a>
-      </p>
+      <div class="music-layout layout-flip">
+        <div>
+          <h2>Visit Us</h2>
+          <p>
+            212 Albert Ave,<br>
+            East Lansing, MI 48823<br>
+            <a href="tel:5178582100">517.858.2100</a>
+          </p>
+          <p class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61555228272809" target="_blank" rel="noopener" aria-label="Mash on Facebook">
+              <svg viewBox="4 4 16 16" aria-hidden="true"><path d="M13.5 21v-7.5H16l.4-3h-2.9V8.7c0-.9.3-1.5 1.5-1.5h1.5V4.5c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 3.9v2.2H8v3h2.5V21z" fill="currentColor"/></svg>
+            </a>
+            <a href="https://www.instagram.com/mash.eastlansing/" target="_blank" rel="noopener" aria-label="Mash on Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@masheastlansing" target="_blank" rel="noopener" aria-label="Mash on TikTok">
+              <svg viewBox="3 2.5 19 19" aria-hidden="true"><path d="M16.6 3c.3 2.3 1.7 3.8 3.9 4v3c-1.5 0-2.8-.4-3.9-1.2V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.1a3 3 0 1 0 2 2.8V3z" fill="currentColor"/></svg>
+            </a>
+          </p>
+        </div>
 
-      <h3>Hours</h3>
-      <ul class="plain hours">
-        <li class="closed"><span>Sunday</span> <span>Closed</span></li>
-        <li class="closed"><span>Monday</span> <span>Closed</span></li>
-        <li><span>Tuesday</span> <span>6pm–10pm</span></li>
-        <li><span>Wednesday</span> <span>6pm–2am</span></li>
-        <li><span>Thursday</span> <span>6pm–2am</span></li>
-        <li><span>Friday</span> <span>6pm–2am</span></li>
-        <li><span>Saturday</span> <span>6pm–2am</span></li>
-      </ul>
+        <!-- Storefront photo, in the same square frame as the slideshows -->
+        <div class="slideshow" aria-label="Mash storefront" role="region">
+          <img src="images/mash%20visit%20us%20.jpeg" alt="Mash's storefront at night with the lit-up Mash sign on Albert Ave" style="object-position: 50% 20%">
+        </div>
+      </div>
     </section>
   </main>
 
