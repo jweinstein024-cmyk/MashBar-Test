@@ -1,17 +1,29 @@
-/* Mash Bar — warm, low-lit lakeside lodge: brand orange & white over dark walnut, Edison-bulb glow */
+/* Mash Bar — warm, low-lit saloon: brand orange & white over dark barnwood, an aged-paper calendar band, Edison-bulb glow */
 
 :root {
   --walnut-dark: #1b140f;
   --walnut: #251b14;
   --walnut-light: #33261c;
   --plank-line: #3e2e22;
-  --white: #fbf7f1;
   --white-muted: #cdbfae;
   --orange: #e8772e;
-  --brass: #b98a4a;
   --pine: #4a5a43;
+  --saddle: #c8a26b;
+  --cream: #f3e6cc;
+  --rust: #9c3b25;
+  --turquoise: #3f8f8a;
+  /* aged paper and the ink printed on it */
+  --paper: #e4cfa5;
+  --ink: #2e2015;
+  --ink-muted: #6b5038;
+  --leather: #2b1810;
+  /* speckled grain for paper and leather */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0 0.15 0.35 0 0 0 -0.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* longhorn skull, used as a mask so it takes any color */
+  --longhorn: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 24'%3E%3Cpath fill-rule='evenodd' d='M26 9C20 11 12 11 6 6C4 4 2 3 1 3C3 6 6 10 12 12C18 14 23 13 26 12ZM38 9C44 11 52 11 58 6C60 4 62 3 63 3C61 6 58 10 52 12C46 14 41 13 38 12ZM25 7C27 5 37 5 39 7L39 12C38 15 36 17 35 22C34 24 30 24 29 22C28 17 26 15 25 12ZM28.5 9.5a1.6 1.6 0 1 0 0.01 0ZM35.5 9.5a1.6 1.6 0 1 0 0.01 0Z'/%3E%3C/svg%3E");
 
-  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-display: "Rye", Georgia, "Times New Roman", serif;
+  --font-label: "Oswald", "Arial Narrow", Arial, sans-serif;
   --font-body: "Lora", Georgia, "Times New Roman", serif;
 }
 
@@ -30,8 +42,14 @@ body {
   font-family: var(--font-body);
   font-size: 1.05rem;
   line-height: 1.7;
-  color: var(--white);
+  color: var(--cream);
   background-color: var(--walnut-dark);
+  /* barnwood: 140px boards in three shades, dark seams with a lit top edge, fine grain */
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0 137px, rgba(0, 0, 0, 0.6) 137px 139px, rgba(255, 220, 180, 0.05) 139px 140px),
+    repeating-linear-gradient(180deg, rgba(255, 235, 210, 0.035) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0 2px, transparent 2px 11px),
+    repeating-linear-gradient(180deg, #261b13 0 140px, #1c140e 140px 280px, #2c2016 280px 420px, #211810 420px 560px);
 }
 
 a {
@@ -46,9 +64,9 @@ a:hover {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.25;
-  color: var(--white);
+  color: var(--cream);
 }
 
 /* ---------- Header ---------- */
@@ -90,6 +108,7 @@ nav {
 nav a {
   color: var(--white-muted);
   text-decoration: none;
+  font-family: var(--font-label);
   font-size: 0.85rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -193,15 +212,26 @@ nav a:hover {
 
 /* ---------- Layout ---------- */
 
+/* sections run edge to edge; --gutter keeps their content in an 860px column */
 main {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  container-type: inline-size;
+  --gutter: max(1rem, (100cqi - 828px) / 2);
 }
 
 section {
-  padding: 3rem 0;
+  padding: 3rem var(--gutter);
   border-bottom: 1px solid var(--plank-line);
+}
+
+/* a photo band that ignores the column and fills the window */
+.bleed {
+  margin-inline: calc(-1 * var(--gutter));
+}
+
+/* the one clear call to action at the end of a section */
+.section-cta {
+  margin: 1.5rem 0 0;
+  text-align: center;
 }
 
 section:last-child {
@@ -213,14 +243,46 @@ section h2 {
   margin: 0 0 1rem;
 }
 
-/* small brass rule under section titles */
+/* longhorn skull under section titles */
 section h2::after {
   content: "";
   display: block;
-  width: 48px;
-  height: 2px;
+  width: 52px;
+  height: 20px;
   margin-top: 0.6rem;
-  background: var(--brass);
+  background: var(--saddle);
+  -webkit-mask: var(--longhorn) center / contain no-repeat;
+  mask: var(--longhorn) center / contain no-repeat;
+}
+
+/* ---------- Paper band: the calendar ---------- */
+
+#calendar {
+  border-block: 3px double var(--turquoise);
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(120, 80, 40, 0.3) 100%),
+    radial-gradient(circle at 18% 30%, rgba(150, 100, 50, 0.12), transparent 22%),
+    radial-gradient(circle at 82% 75%, rgba(150, 100, 50, 0.1), transparent 18%),
+    var(--grain),
+    var(--paper);
+}
+
+/* the section before the band doesn't need its own divider */
+section:has(+ #calendar) {
+  border-bottom: none;
+}
+
+#calendar h2 {
+  color: var(--ink);
+}
+
+#calendar h2::after {
+  background: var(--rust);
+}
+
+#calendar strong {
+  color: var(--rust);
 }
 
 h3 {
@@ -231,6 +293,7 @@ h3 {
 
 h4 {
   margin: 1.25rem 0 0.35rem;
+  font-family: var(--font-label);
   font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -240,28 +303,49 @@ h4 {
 /* ---------- Hero ---------- */
 
 #hero {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  min-height: min(78vh, 680px);
+  padding-block: 4rem;
   text-align: center;
-  padding: 1rem 0 4rem;
+  border-bottom: none;
+  /* swap in a photo of the bull's head (with the bulbs above) when there is one */
+  background:
+    linear-gradient(180deg, rgba(27, 20, 15, 0.55), rgba(27, 20, 15, 0.85)),
+    url("images/mash%20live%20band%203.jpg") center 30% / cover;
 }
 
 #hero h2 {
-  max-width: 640px;
-  margin: 1.5rem auto 1rem;
-  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  max-width: 760px;
+  margin: 0 0 1rem;
+  font-size: clamp(2.2rem, 7vw, 4rem);
+  line-height: 1.1;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
 }
 
 #hero h2::after {
+  width: 72px;
+  height: 28px;
   margin: 1rem auto 0;
+  background: var(--orange);
 }
 
-#hero p {
-  max-width: 640px;
-  margin: 0 auto;
-  color: var(--white);
-  font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-  font-style: italic;
-  font-weight: 600;
-  line-height: 1.45;
+.hero-line {
+  margin: 0;
+  color: var(--cream);
+  font-family: var(--font-label);
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+
+#hero .button {
+  margin-top: 1.5rem;
+  padding: 0.85rem 2rem;
+  font-size: 1.15rem;
 }
 
 /* "Tonight at Mash" card */
@@ -275,9 +359,9 @@ h4 {
   padding: 0.9rem 1.5rem 1rem;
   border: 1px solid var(--orange);
   border-radius: 8px;
-  background: var(--walnut);
+  background: rgba(37, 27, 20, 0.88);
   box-shadow: 0 0 24px rgba(232, 119, 46, 0.15);
-  color: var(--white);
+  color: var(--cream);
   text-decoration: none;
   transition: box-shadow 0.2s ease;
 }
@@ -292,10 +376,15 @@ h4 {
 }
 
 .tonight-label {
+  padding: 0.1rem 0.6rem;
+  border-radius: 3px;
+  background: var(--turquoise);
+  color: var(--walnut-dark);
+  font-family: var(--font-label);
   font-size: 0.75rem;
+  font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--orange);
 }
 
 .tonight-status {
@@ -316,9 +405,9 @@ h4 {
 }
 
 .tonight.is-open .tonight-dot {
-  background: #5cd65c;
+  background: var(--turquoise);
   opacity: 1;
-  box-shadow: 0 0 8px #5cd65c;
+  box-shadow: 0 0 8px var(--turquoise);
   animation: tonight-pulse 2s ease-in-out infinite;
 }
 
@@ -409,7 +498,10 @@ h4 {
 @media (prefers-reduced-motion: reduce) {
   .bulbs svg,
   .bat,
-  .tonight-dot { animation: none !important; }
+  .tonight-dot,
+  .marquee-track { animation: none !important; }
+  /* no scrolling sign: let people swipe through it instead */
+  .marquee { overflow-x: auto; }
   .slideshow .slide { transition: none; }
   html { scroll-behavior: auto; }
 }
@@ -452,19 +544,6 @@ h4 {
   opacity: 1;
 }
 
-.slideshow-empty {
-  display: grid;
-  place-items: center;
-  height: 100%;
-  margin: 0;
-  color: var(--white-muted);
-  font-style: italic;
-}
-
-.slideshow.has-slides .slideshow-empty {
-  display: none;
-}
-
 /* previous/next arrows on the left and right of the photo */
 .slideshow-arrow {
   position: absolute;
@@ -475,10 +554,10 @@ h4 {
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
-  border: 1px solid rgba(251, 247, 241, 0.5);
+  border: 1px solid rgba(243, 230, 204, 0.5);
   border-radius: 50%;
   background: rgba(27, 20, 15, 0.6);
-  color: var(--white);
+  color: var(--cream);
   font-size: 2rem;
   line-height: 1;
   cursor: pointer;
@@ -506,7 +585,7 @@ h4 {
 }
 
 .slideshow-arrow:focus-visible {
-  outline: 2px solid var(--white);
+  outline: 2px solid var(--cream);
   outline-offset: 2px;
 }
 
@@ -533,16 +612,10 @@ h4 {
 
 /* ---------- October calendar ---------- */
 
-/* Halloween panel: candlelit purple-black with cobwebs and bats */
+/* Halloween panel: cobwebs and bats inked onto the paper */
 .haunt {
   position: relative;
   padding: 2rem 1.25rem 1.5rem;
-  border: 1px solid #3b2a3f;
-  border-radius: 6px;
-  background:
-    radial-gradient(ellipse at 50% 110%, rgba(232, 119, 46, 0.16), transparent 60%),
-    radial-gradient(ellipse at 50% 0%, rgba(110, 70, 130, 0.22), transparent 65%),
-    #17111a;
   overflow: hidden;
 }
 
@@ -551,12 +624,22 @@ h4 {
   z-index: 1;
 }
 
+.web,
+.bats {
+  display: none;
+}
+
+.haunt.is-spooky .web,
+.haunt.is-spooky .bats {
+  display: block;
+}
+
 .web {
   position: absolute;
   top: 0;
   width: 110px;
   height: 110px;
-  color: rgba(236, 224, 210, 0.22);
+  color: rgba(70, 45, 25, 0.35);
   pointer-events: none;
 }
 
@@ -580,8 +663,7 @@ h4 {
 
 .bat {
   position: absolute;
-  color: #0a070c;
-  filter: drop-shadow(0 0 3px rgba(150, 110, 170, 0.45));
+  color: var(--ink);
   animation: bat-drift 7s ease-in-out infinite;
 }
 
@@ -601,14 +683,14 @@ h4 {
   border-color: var(--orange);
   background:
     radial-gradient(circle at 50% 70%, rgba(232, 119, 46, 0.25), transparent 70%),
-    var(--walnut);
+    var(--cream);
 }
 
 .cal-day .cal-holiday {
   margin-top: 0.4rem;
   font-family: var(--font-display);
   font-size: 0.95rem;
-  color: var(--orange);
+  color: var(--rust);
 }
 
 /* sits at the bottom of the Halloween box */
@@ -624,7 +706,7 @@ h4 {
 
 .cal-intro {
   margin: 0 0 1.25rem;
-  color: var(--white-muted);
+  color: var(--ink-muted);
 }
 
 .cal-weekdays,
@@ -641,10 +723,11 @@ h4 {
 .cal-weekdays span {
   padding: 0.35rem 0;
   text-align: center;
+  font-family: var(--font-label);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--orange);
+  color: var(--rust);
 }
 
 .cal-grid {
@@ -656,8 +739,8 @@ h4 {
 .cal-day {
   min-height: 120px;
   padding: 0.45rem 0.5rem 0.55rem;
-  background: var(--walnut);
-  border: 1px solid var(--plank-line);
+  background: var(--cream);
+  border: 1px solid rgba(140, 95, 50, 0.35);
   border-radius: 3px;
   font-size: 0.78rem;
   line-height: 1.35;
@@ -682,37 +765,37 @@ h4 {
 }
 
 .cal-num {
-  font-family: var(--font-display);
+  font-family: var(--font-label);
   font-size: 1rem;
-  color: var(--white);
+  color: var(--ink);
 }
 
 .cal-time {
-  color: var(--white-muted);
+  color: var(--ink-muted);
 }
 
 .cal-band {
   font-weight: 600;
-  color: var(--white);
+  color: var(--ink);
 }
 
 .cal-deal {
-  color: var(--orange);
+  color: var(--rust);
 }
 
-/* nights where the event leads (Tuesday Trivia): event orange, deal white */
+/* nights where the event leads (Tuesday Trivia): event rust, deal ink */
 .cal-event-first .cal-event {
-  color: var(--orange);
+  color: var(--rust);
 }
 
 .cal-event-first .cal-deal:not(.cal-tba) {
-  color: var(--white);
+  color: var(--ink);
 }
 
 .cal-tba {
   font-style: italic;
   font-weight: 400;
-  color: var(--white-muted);
+  color: var(--ink-muted);
   opacity: 0.7;
 }
 
@@ -728,7 +811,7 @@ h4 {
   text-align: center;
   font-size: 0.65rem;
   font-style: italic;
-  color: var(--white-muted);
+  color: var(--ink-muted);
 }
 
 /* Halloween falls on a Saturday: keep the note just under the pumpkin */
@@ -737,12 +820,12 @@ h4 {
 }
 
 .cal-closed {
-  background: var(--walnut-dark);
+  background: rgba(120, 80, 40, 0.1);
 }
 
 .cal-closed .cal-num,
 .cal-note {
-  color: var(--white-muted);
+  color: var(--ink-muted);
   opacity: 0.6;
 }
 
@@ -756,7 +839,7 @@ h4 {
 }
 
 .cal-today .cal-num {
-  color: var(--orange);
+  color: var(--rust);
 }
 
 .cal-open-hours {
@@ -765,7 +848,7 @@ h4 {
   justify-content: center;
   gap: 0.25rem 2rem;
   margin-top: 1rem;
-  color: var(--white);
+  color: var(--ink);
 }
 
 /* next-7-nights list: phones only */
@@ -803,7 +886,7 @@ h4 {
     height: 70px;
   }
 
-  .bats {
+  .haunt.is-spooky .bats {
     display: none;
   }
 
@@ -836,8 +919,10 @@ h4 {
 
   .cal-weekday {
     display: inline;
-    font-family: var(--font-display);
-    color: var(--white);
+    font-family: var(--font-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
   }
 }
 
@@ -901,7 +986,7 @@ details.drinks[open] summary::after {
 
 details.drinks summary:hover h3,
 details.drinks summary:focus-visible h3 {
-  color: var(--white);
+  color: var(--cream);
 }
 
 details.drinks summary:focus-visible {
@@ -923,7 +1008,7 @@ details.drinks > :not(summary) {
 .grid ul {
   margin: 0;
   padding-left: 1rem;
-  color: var(--white);
+  color: var(--cream);
 }
 
 /* each drink stays on one line */
@@ -938,7 +1023,7 @@ details.drinks > :not(summary) {
 }
 
 .grid li::marker {
-  color: var(--brass);
+  color: var(--saddle);
 }
 
 /* ---------- Booking form ---------- */
@@ -957,13 +1042,18 @@ details.drinks > :not(summary) {
 
 .booking-form legend {
   padding: 0 0.4rem;
-  font-family: var(--font-display);
+  font-family: var(--font-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--orange);
 }
 
 .booking-form label {
   display: block;
   margin-bottom: 1rem;
+  font-family: var(--font-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   font-size: 0.9rem;
   color: var(--white-muted);
 }
@@ -977,9 +1067,12 @@ details.drinks > :not(summary) {
   border: 1px solid var(--plank-line);
   border-radius: 4px;
   background: var(--walnut-dark);
-  color: var(--white);
+  color: var(--cream);
   font: inherit;
+  font-family: var(--font-body);
   font-size: 1rem;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .booking-form textarea {
@@ -1013,7 +1106,7 @@ details.drinks > :not(summary) {
   border: 1px solid var(--orange);
   border-radius: 8px;
   background: var(--walnut-dark);
-  color: var(--white);
+  color: var(--cream);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
@@ -1044,7 +1137,7 @@ details.drinks > :not(summary) {
   border: 1px solid var(--plank-line);
   border-radius: 50%;
   background: transparent;
-  color: var(--white);
+  color: var(--cream);
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
@@ -1068,6 +1161,9 @@ details.drinks > :not(summary) {
 
 .field-label {
   display: block;
+  font-family: var(--font-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   font-size: 0.9rem;
   color: var(--white-muted);
 }
@@ -1121,7 +1217,10 @@ details.drinks > :not(summary) {
   background: transparent;
   color: var(--orange);
   font: inherit;
+  font-family: var(--font-label);
   font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
@@ -1212,7 +1311,7 @@ details.drinks > :not(summary) {
   border: none;
   border-radius: 4px;
   background: transparent;
-  color: var(--white);
+  color: var(--cream);
   font: inherit;
   cursor: pointer;
 }
@@ -1264,7 +1363,10 @@ details.drinks > :not(summary) {
   background: transparent;
   color: var(--orange);
   font: inherit;
+  font-family: var(--font-label);
   font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
@@ -1288,6 +1390,7 @@ details.drinks > :not(summary) {
 }
 
 .sample-kind {
+  font-family: var(--font-label);
   flex: 0 0 auto;
   padding: 0.05rem 0.4rem;
   border-radius: 3px;
@@ -1304,7 +1407,7 @@ details.drinks > :not(summary) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--white);
+  color: var(--cream);
 }
 
 .sample-list .remove-link {
@@ -1322,7 +1425,7 @@ details.drinks > :not(summary) {
   padding: 0.6rem 0.8rem;
   border-left: 3px solid var(--orange);
   background: rgba(232, 119, 46, 0.1);
-  color: var(--white);
+  color: var(--cream);
   font-size: 0.9rem;
 }
 
@@ -1390,8 +1493,10 @@ button.button {
   border-radius: 4px;
   background: var(--orange);
   color: var(--walnut-dark);
-  font-family: var(--font-display);
+  font-family: var(--font-label);
   font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease;
 }
@@ -1420,21 +1525,282 @@ footer p {
 }
 
 .footer-age {
-  color: var(--white);
+  color: var(--cream);
   letter-spacing: 0.04em;
 }
 
+/* dark tooled leather with a stitched seam along the top */
 footer {
+  position: relative;
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 2.5rem 1rem 2rem;
   color: var(--white-muted);
   font-size: 0.9rem;
-  background: var(--walnut);
-  border-top: 1px solid var(--plank-line);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(160, 90, 40, 0.25), transparent 70%),
+    radial-gradient(ellipse at 50% 120%, rgba(0, 0, 0, 0.5), transparent 60%),
+    var(--grain),
+    var(--leather);
+  border-top: 3px solid #140b06;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  right: 14px;
+  border-top: 2px dashed rgba(200, 162, 107, 0.55);
 }
 
 @media (max-width: 600px) {
   header {
     padding: 0.75rem 1rem;
+  }
+}
+
+/* ---------- Marquee: this week's lineup scrolling under the header ---------- */
+
+.marquee {
+  overflow: hidden;
+  border-block: 2px solid var(--saddle);
+  background: var(--walnut-dark);
+  font-family: var(--font-label);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* two copies of the same text slide left by half, so the loop is seamless */
+.marquee-track {
+  display: inline-flex;
+  padding: 0.45rem 0;
+  animation: marquee 45s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-inline: 1.25rem;
+  color: var(--cream);
+}
+
+.marquee-item::after {
+  content: "\2605";
+  margin-left: 1.25rem;
+  color: var(--orange);
+}
+
+.marquee-day {
+  color: var(--orange);
+}
+
+.marquee-day.is-tonight {
+  padding: 0 0.45rem;
+  border-radius: 3px;
+  background: var(--turquoise);
+  color: var(--walnut-dark);
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- Weekly specials: rust tickets with stitched borders ---------- */
+
+.tickets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 130px;
+  padding: 1.25rem;
+  text-align: center;
+  color: var(--cream);
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(255, 220, 180, 0.12), transparent 70%),
+    var(--rust);
+  /* stitched leather edge */
+  outline: 2px dashed rgba(243, 230, 204, 0.6);
+  outline-offset: -9px;
+  /* half-circle notches on the sides, like a ticket stub */
+  -webkit-mask: radial-gradient(circle at 0 50%, transparent 11px, #000 12px) left / 51% 100% no-repeat,
+                radial-gradient(circle at 100% 50%, transparent 11px, #000 12px) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle at 0 50%, transparent 11px, #000 12px) left / 51% 100% no-repeat,
+        radial-gradient(circle at 100% 50%, transparent 11px, #000 12px) right / 51% 100% no-repeat;
+}
+
+.ticket-day {
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--saddle);
+}
+
+.ticket-deal {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 4vw, 1.45rem);
+  line-height: 1.2;
+}
+
+/* ---------- Live Music: full-width photo band ---------- */
+
+.music-nights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  gap: 0.25rem 1.5rem;
+}
+
+.slideshow.photo-band {
+  aspect-ratio: 21 / 9;
+  margin-top: 2rem;
+  border-inline: none;
+  border-radius: 0;
+}
+
+@media (max-width: 700px) {
+  .slideshow.photo-band {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ---------- Play at Mash: a wanted poster on torn paper ---------- */
+
+/* the shadow sits on a wrapper because clip-path would cut it off */
+.poster-wrap {
+  max-width: 540px;
+  margin: 0 auto;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.55));
+  transform: rotate(-1deg);
+}
+
+.poster {
+  padding: 2.5rem 2.25rem 2.25rem;
+  text-align: center;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(120, 80, 40, 0.35) 100%),
+    var(--grain),
+    var(--paper);
+  outline: 2px solid var(--ink);
+  outline-offset: -16px;
+  clip-path: polygon(0% 4px, 4% 2px, 8% 6px, 12% 10px, 16% 0px, 20% 0px, 24% 8px, 28% 0px, 32% 4px, 36% 8px, 40% 0px, 44% 8px, 48% 2px, 52% 0px, 56% 0px, 60% 6px, 64% 6px, 68% 0px, 72% 2px, 76% 0px, 80% 8px, 84% 6px, 88% 0px, 92% 8px, 96% 0px, 100% 2px, 100% calc(100% - 10px), 96% calc(100% - 8px), 92% calc(100% - 8px), 88% calc(100% - 0px), 84% calc(100% - 2px), 80% calc(100% - 10px), 76% calc(100% - 8px), 72% calc(100% - 4px), 68% calc(100% - 8px), 64% calc(100% - 0px), 60% calc(100% - 8px), 56% calc(100% - 2px), 52% calc(100% - 6px), 48% calc(100% - 4px), 44% calc(100% - 2px), 40% calc(100% - 8px), 36% calc(100% - 0px), 32% calc(100% - 2px), 28% calc(100% - 0px), 24% calc(100% - 6px), 20% calc(100% - 8px), 16% calc(100% - 8px), 12% calc(100% - 0px), 8% calc(100% - 8px), 4% calc(100% - 10px), 0% calc(100% - 10px));
+}
+
+.poster-kicker {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rust);
+}
+
+.poster h2 {
+  margin: 0.25rem 0 1rem;
+  color: var(--ink);
+  font-size: clamp(2rem, 7vw, 3rem);
+  line-height: 1.05;
+}
+
+.poster h2::after {
+  margin: 0.75rem auto 0;
+  background: var(--rust);
+}
+
+.poster-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 3px solid var(--ink);
+  filter: sepia(0.55) contrast(1.05);
+}
+
+.poster p {
+  margin: 1rem 0 0;
+}
+
+.poster .button:hover,
+.poster .button:focus-visible {
+  color: var(--rust);
+  border-color: var(--rust);
+}
+
+/* ---------- Private parties: two prints pinned up together ---------- */
+
+.collage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+}
+
+.collage img {
+  position: absolute;
+  object-fit: cover;
+  border: 7px solid var(--cream);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+.collage img:first-child {
+  top: 0;
+  left: 2%;
+  width: 52%;
+  aspect-ratio: 3 / 4;
+  object-position: 50% 40%;
+  transform: rotate(-4deg);
+}
+
+.collage img:last-child {
+  right: 2%;
+  bottom: 2%;
+  z-index: 1;
+  width: 62%;
+  aspect-ratio: 1 / 1;
+  transform: rotate(3deg);
+}
+
+/* ---------- Photo strip ---------- */
+
+.photo-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 3px;
+  margin-block: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.photo-strip img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  transition: filter 0.2s ease;
+}
+
+.photo-strip img:hover {
+  filter: brightness(1.15);
+}
+
+@media (max-width: 700px) {
+  .photo-strip {
+    grid-template-columns: repeat(3, 1fr);
   }
 }

@@ -62,6 +62,10 @@ const WEEKLY = {
        footnote: "*Schedule Subject to Change*" },
 };
 
+// Cobwebs and bats over the calendar: on automatically for an October
+// calendar. Set to false to switch them off.
+const SPOOKY_DECOR = MONTH === 9;
+
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 function el(tag, className, text) {
@@ -187,6 +191,7 @@ function renderUpcoming() {
 
 renderCalendar();
 renderUpcoming();
+document.querySelector(".haunt")?.classList.toggle("is-spooky", SPOOKY_DECOR);
 
 // ---- "Tonight at Mash" card in the hero ----
 // Built from WEEKLY (and SCHEDULE for band names / one-off deals), so it
@@ -261,11 +266,64 @@ function renderTonight() {
   card.hidden = false;
 }
 
+// ---- Weekly specials tickets ----
+// One ticket per night with a standing deal in WEEKLY, Tuesday (the first
+// open night of the week) first.
+
+const WEEKLY_ORDER = [2, 3, 4, 5, 6, 0, 1];
+
+function renderSpecials() {
+  const list = document.getElementById("specials-list");
+  if (!list) return;
+
+  WEEKLY_ORDER.forEach((weekday) => {
+    const plan = WEEKLY[weekday];
+    if (plan.closed || plan.noDeal || !plan.deal) return;
+    const ticket = el("li", "ticket");
+    ticket.appendChild(el("span", "ticket-day", WEEKDAYS[weekday]));
+    ticket.appendChild(el("span", "ticket-deal", plan.deal));
+    list.appendChild(ticket);
+  });
+}
+
+// ---- Marquee under the header ----
+// The next few open nights, e.g. "TONIGHT  Karaoke 9pm–12am · $4 Doubles ★"
+
+const MARQUEE_NIGHTS = 6;
+
+function renderMarquee() {
+  const track = document.getElementById("marquee-track");
+  if (!track) return;
+
+  const items = [];
+  const tonight = currentNight();
+  for (let i = 0; i < 7 && items.length < MARQUEE_NIGHTS; i++) {
+    const date = new Date(tonight.getFullYear(), tonight.getMonth(), tonight.getDate() + i);
+    if (WEEKLY[date.getDay()].closed) continue;
+    const item = el("span", "marquee-item");
+    item.appendChild(el("span", i === 0 ? "marquee-day is-tonight" : "marquee-day",
+      i === 0 ? "Tonight" : SHORT_DAYS[date.getDay()]));
+    item.appendChild(document.createTextNode(lineupFor(date).join(" · ")));
+    items.push(item);
+  }
+
+  // a second, hidden copy follows the first so the scroll loops without a gap
+  const copy = el("span");
+  copy.setAttribute("aria-hidden", "true");
+  items.forEach((item) => copy.appendChild(item.cloneNode(true)));
+  track.replaceChildren(...items, copy);
+}
+
 renderTonight();
+renderSpecials();
+renderMarquee();
 setInterval(() => {
   renderTonight();
-  // keep the phone list starting at tonight if the page stays open past 6am
+  // keep the phone list and marquee starting at tonight if the page stays open past 6am
   const first = document.querySelector("#upcoming-list .cal-num");
   const tonight = currentNight();
-  if (first && !first.textContent.endsWith(" " + tonight.getDate())) renderUpcoming();
+  if (first && !first.textContent.endsWith(" " + tonight.getDate())) {
+    renderUpcoming();
+    renderMarquee();
+  }
 }, 60 * 1000);
