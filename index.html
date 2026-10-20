@@ -95,6 +95,13 @@
     <section id="hero">
       <h2>Downtown East Lansing&#8217;s Home for Live Music</h2>
       <p>Live music every week. DJs till close. Drinks all night.</p>
+
+      <!-- filled in by calendar.js from the weekly schedule -->
+      <a class="tonight" id="tonight" href="#calendar" aria-live="polite" hidden>
+        <span class="tonight-label">Tonight at Mash</span>
+        <span class="tonight-status"><span class="tonight-dot" aria-hidden="true"></span><span class="tonight-status-text"></span></span>
+        <span class="tonight-lineup"></span>
+      </a>
     </section>
 
     <section id="calendar">
@@ -106,12 +113,13 @@
         <svg class="bat bat-2"><use href="#bat"/></svg>
         <svg class="bat bat-3"><use href="#bat"/></svg>
       </div>
-      <h2>October at Mash</h2>
-      <p class="cal-intro">Who's playing and what's on special, every night this month.</p>
+      <h2><span class="desktop-only">October at Mash</span><span class="phone-only">This Week at Mash</span></h2>
+      <p class="cal-intro"><span class="desktop-only">Who's playing and what's on special, every night this month.</span><span class="phone-only">Who's playing and what's on special for the next 7 nights.</span></p>
       <div class="cal-weekdays" aria-hidden="true">
         <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
       </div>
       <ol id="calendar-grid" class="cal-grid"></ol>
+      <ol id="upcoming-list" class="cal-grid cal-upcoming"></ol>
       <ul class="plain cal-open-hours">
         <li><strong>Tuesday</strong> 6pm - 10pm</li>
         <li><strong>Wednesday - Saturday</strong> 6pm - 2am</li>

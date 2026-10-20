@@ -264,6 +264,74 @@ h4 {
   line-height: 1.45;
 }
 
+/* "Tonight at Mash" card */
+.tonight {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  max-width: 100%;
+  margin-top: 1.75rem;
+  padding: 0.9rem 1.5rem 1rem;
+  border: 1px solid var(--orange);
+  border-radius: 8px;
+  background: var(--walnut);
+  box-shadow: 0 0 24px rgba(232, 119, 46, 0.15);
+  color: var(--white);
+  text-decoration: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.tonight[hidden] {
+  display: none;
+}
+
+.tonight:hover,
+.tonight:focus-visible {
+  box-shadow: 0 0 32px rgba(232, 119, 46, 0.35);
+}
+
+.tonight-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.tonight-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+/* grey when closed, glowing green when open */
+.tonight-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--white-muted);
+  opacity: 0.6;
+}
+
+.tonight.is-open .tonight-dot {
+  background: #5cd65c;
+  opacity: 1;
+  box-shadow: 0 0 8px #5cd65c;
+  animation: tonight-pulse 2s ease-in-out infinite;
+}
+
+@keyframes tonight-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+.tonight-lineup {
+  color: var(--white-muted);
+  font-size: 0.95rem;
+}
+
 /* Edison bulbs strung across the full width of the page, below the header */
 .bulbs {
   display: flex;
@@ -340,7 +408,8 @@ h4 {
 
 @media (prefers-reduced-motion: reduce) {
   .bulbs svg,
-  .bat { animation: none; }
+  .bat,
+  .tonight-dot { animation: none !important; }
   .slideshow .slide { transition: none; }
   html { scroll-behavior: auto; }
 }
@@ -699,6 +768,26 @@ h4 {
   color: var(--white);
 }
 
+/* next-7-nights list: phones only */
+.cal-grid.cal-upcoming {
+  display: none;
+}
+
+/* text that differs between desktop and phones */
+.phone-only {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .phone-only {
+    display: inline;
+  }
+}
+
 /* phones: a list of days instead of a squeezed 7-column grid */
 @media (max-width: 700px) {
   .cal-weekdays {
@@ -726,9 +815,13 @@ h4 {
     display: none;
   }
 
-  /* on phones, skip days that have already passed to keep the list short */
-  .cal-past {
+  /* phones: swap the month grid for the next-7-nights list */
+  #calendar-grid {
     display: none;
+  }
+
+  .cal-grid.cal-upcoming {
+    display: grid;
   }
 
   .cal-day {
