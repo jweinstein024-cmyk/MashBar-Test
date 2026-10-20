@@ -13,6 +13,18 @@ function startSlideshow(show) {
 
   slides.forEach((img) => img.classList.add("slide"));
 
+  // in the wide photo band, a whole-photo slide (class="slide-contain") sits on
+  // a blurred, darkened copy of itself instead of black bars
+  const backdrops = slides.map((img) => {
+    if (!show.classList.contains("photo-band") || !img.classList.contains("slide-contain")) return null;
+    const copy = document.createElement("img");
+    copy.src = img.src;
+    copy.alt = "";
+    copy.className = "slide-backdrop";
+    img.before(copy);
+    return copy;
+  });
+
   // left/right arrows (the slideshow is paused while hovered or focused,
   // so clicking an arrow just changes the photo)
   function arrow(direction, label, symbol) {
@@ -36,8 +48,10 @@ function startSlideshow(show) {
 
   function goTo(i) {
     slides[current].classList.remove("is-active");
+    backdrops[current]?.classList.remove("is-active");
     current = (i + slides.length) % slides.length;
     slides[current].classList.add("is-active");
+    backdrops[current]?.classList.add("is-active");
   }
 
   function stop() {
