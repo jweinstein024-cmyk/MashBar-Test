@@ -96,6 +96,21 @@ header h1 {
   width: clamp(140px, 30vw, 200px);
   height: auto;
   mix-blend-mode: screen;
+  transition: width 0.25s ease;
+}
+
+/* once you scroll down, the header slims to one row (logo left, menu right)
+   so it doesn't fill the top of a laptop screen; header.js adds .is-scrolled */
+@media (min-width: 701px) {
+  header.is-scrolled {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.4rem 1.5rem;
+  }
+
+  header.is-scrolled .logo img {
+    width: 100px;
+  }
 }
 
 nav {
@@ -810,7 +825,7 @@ h4 {
   margin-top: auto;
   padding-top: 0.4rem;
   text-align: center;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-style: italic;
   color: var(--ink-muted);
 }
@@ -1034,6 +1049,8 @@ details.drinks > :not(summary) {
 }
 
 .booking-form fieldset {
+  /* fieldsets won't shrink below their content by default, so a long sample link would push the form wider than the window */
+  min-width: 0;
   margin: 0 0 1.25rem;
   padding: 1rem 1.25rem 0.25rem;
   border: 1px solid var(--plank-line);
@@ -1268,22 +1285,7 @@ details.drinks > :not(summary) {
   }
 }
 
-/* touch screens can't drag files in, so the dropbox says "tap" instead */
-.dropzone-touch {
-  display: none;
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .dropzone-desktop {
-    display: none;
-  }
-
-  .dropzone-touch {
-    display: inline;
-  }
-}
-
-/* "Sample of your band playing" dropbox */
+/* "Sample of your band playing" link box */
 .dropzone {
   margin-top: 0.3rem;
   padding: 0.75rem;
@@ -1293,62 +1295,14 @@ details.drinks > :not(summary) {
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.dropzone.is-dragging {
-  border-color: var(--orange);
-  background: rgba(232, 119, 46, 0.1);
-}
-
 .booking-form.was-submitted .dropzone.is-invalid {
   border-color: #d9534f;
-}
-
-.dropzone-pick {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.15rem;
-  width: 100%;
-  padding: 1rem 0.5rem;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--cream);
-  font: inherit;
-  cursor: pointer;
-}
-
-.dropzone-pick:hover,
-.dropzone-pick:focus-visible {
-  background: rgba(232, 119, 46, 0.08);
-  outline: none;
-}
-
-.dropzone-pick:focus-visible {
-  box-shadow: 0 0 0 2px var(--orange);
-}
-
-.dropzone-icon {
-  font-size: 1.6rem;
-  line-height: 1;
-  color: var(--orange);
-}
-
-.dropzone-title {
-  font-size: 0.95rem;
-}
-
-.dropzone-sub {
-  font-size: 0.8rem;
-  color: var(--orange);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 .dropzone-link {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  margin-top: 0.5rem;
 }
 
 .dropzone-link input {
@@ -1421,15 +1375,6 @@ details.drinks > :not(summary) {
   color: #f08a85;
 }
 
-.form-notice {
-  margin: 0 0 0.75rem;
-  padding: 0.6rem 0.8rem;
-  border-left: 3px solid var(--orange);
-  background: rgba(232, 119, 46, 0.1);
-  color: var(--cream);
-  font-size: 0.9rem;
-}
-
 .form-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1456,6 +1401,10 @@ button.button {
 }
 
 /* ---------- Social icons (Visit Us) ---------- */
+
+.visit-hours {
+  margin-bottom: 1.25rem;
+}
 
 .social-links {
   display: flex;
@@ -1652,7 +1601,8 @@ footer::before {
   font-size: 0.85rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--saddle);
+  /* a lighter saddle so the small label stays readable on the rust ticket */
+  color: #f0c98a;
 }
 
 .ticket-deal {
@@ -1665,7 +1615,8 @@ footer::before {
 
 .music-nights {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  /* wide enough that "Live Music 8pm–10pm, DJ 10pm–Close" fits on one line; 2 x 2 on laptops */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
   gap: 0.25rem 1.5rem;
 }
 

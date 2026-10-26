@@ -11,6 +11,15 @@ if (siteHeader) {
 
   setHeaderHeight();
   new ResizeObserver(setHeaderHeight).observe(siteHeader);
+
+  // Slim header once the visitor scrolls down (the CSS only applies it on
+  // wider screens). Two different cut-offs stop it flickering at the edge.
+  const updateSlimHeader = () => {
+    if (window.scrollY > 150) siteHeader.classList.add("is-scrolled");
+    else if (window.scrollY < 20) siteHeader.classList.remove("is-scrolled");
+  };
+  updateSlimHeader();
+  window.addEventListener("scroll", updateSlimHeader, { passive: true });
 }
 
 // Phones: the menu links fold away behind a ☰ button to keep the header short.

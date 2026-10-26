@@ -8,15 +8,16 @@ const BOOKING_EMAIL = "REPLACE-WITH-EMAIL@example.com";
 const FIELDS = [
   ["band", "Artist/Band Name"],
   ["genre", "Genre"],
-  ["links", "Website & social links"],
+  ["links", "Social media pages"],
   ["sample", "Sample of us playing"],
   ["phone", "Phone"],
   ["email", "Email"],
   ["info", "Additional information"],
 ];
 
-// Files and links added to the "Sample of your band playing" dropbox
-const samples = { files: [], links: [] };
+// Links added to the "Sample of your band playing" box. Email links can't
+// carry files, so the form asks for links to recordings instead of uploads.
+const samples = { links: [] };
 
 const form = document.getElementById("booking-form");
 
@@ -24,13 +25,12 @@ if (form) {
   const error = form.querySelector(".form-error");
   const sampleError = document.getElementById("sample-error");
   const sampleDrop = document.getElementById("sample-drop");
-  const attachNotice = document.getElementById("attach-notice");
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     addPendingSampleLink();
 
-    const hasSample = samples.files.length + samples.links.length > 0;
+    const hasSample = samples.links.length > 0;
     sampleError.hidden = hasSample;
     sampleDrop.classList.toggle("is-invalid", !hasSample);
 
@@ -38,7 +38,7 @@ if (form) {
       error.hidden = false;
       form.classList.add("was-submitted");
       const firstInvalid = form.querySelector("input:invalid, textarea:invalid") ||
-        document.getElementById("sample-pick");
+        document.getElementById("sample-link");
       firstInvalid.focus();
       return;
     }
@@ -48,7 +48,7 @@ if (form) {
     const body = FIELDS
       .map(([name, label]) => {
         const values = name === "sample"
-          ? [...samples.links, ...samples.files.map((f) => f.name + " (attached)")]
+          ? samples.links
           : data.getAll(name).map((v) => v.trim()).filter(Boolean);
         // several links each go on their own line
         return label + ": " + (values.length > 1 ? "\n  " + values.join("\n  ") : values[0] || "");
@@ -59,20 +59,11 @@ if (form) {
     window.location.href = "mailto:" + BOOKING_EMAIL +
       "?subject=" + encodeURIComponent(subject) +
       "&body=" + encodeURIComponent(body);
-
-    // email links can't carry files, so remind them to attach their own
-    if (samples.files.length) {
-      attachNotice.textContent = "Your email app is opening. Before you press send, attach: " +
-        samples.files.map((f) => f.name).join(", ");
-      attachNotice.hidden = false;
-    }
   });
 }
 
-// ---- Sample dropbox: drag & drop or browse for files, or paste links ----
+// ---- Sample box: paste links to recordings ----
 
-const sampleInput = document.getElementById("sample-files");
-const samplePick = document.getElementById("sample-pick");
 const sampleLink = document.getElementById("sample-link");
 const sampleAdd = document.getElementById("sample-add");
 const sampleList = document.getElementById("sample-list");
@@ -80,10 +71,7 @@ const dropzone = document.getElementById("sample-drop");
 
 function renderSamples() {
   sampleList.innerHTML = "";
-  const items = [
-    ...samples.files.map((file, i) => ({ text: file.name, kind: "File", remove: () => samples.files.splice(i, 1) })),
-    ...samples.links.map((link, i) => ({ text: link, kind: "Link", remove: () => samples.links.splice(i, 1) })),
-  ];
+  const items = samples.links.map((link, i) => ({ text: link, kind: "Link", remove: () => samples.links.splice(i, 1) }));
   for (const item of items) {
     const li = document.createElement("li");
     const kind = document.createElement("span");
@@ -100,7 +88,7 @@ function renderSamples() {
     remove.addEventListener("click", () => {
       item.remove();
       renderSamples();
-      samplePick.focus();
+      sampleLink.focus();
     });
     li.append(kind, text, remove);
     sampleList.appendChild(li);
@@ -109,14 +97,6 @@ function renderSamples() {
     document.getElementById("sample-error").hidden = true;
     dropzone.classList.remove("is-invalid");
   }
-}
-
-function addSampleFiles(fileList) {
-  for (const file of fileList) {
-    const duplicate = samples.files.some((f) => f.name === file.name && f.size === file.size);
-    if (!duplicate) samples.files.push(file);
-  }
-  renderSamples();
 }
 
 function addSampleLink(text) {
@@ -134,46 +114,11 @@ function addPendingSampleLink() {
 }
 
 if (dropzone) {
-  // the full placeholder gets cut off on phones, so use a shorter one there
-  if (window.matchMedia("(max-width: 600px)").matches) {
-    sampleLink.placeholder = "SoundCloud or Spotify link";
-  }
-
-  samplePick.addEventListener("click", () => sampleInput.click());
-  sampleInput.addEventListener("change", () => {
-    addSampleFiles(sampleInput.files);
-    sampleInput.value = "";
-  });
-
   sampleAdd.addEventListener("click", addPendingSampleLink);
   sampleLink.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       addPendingSampleLink();
-    }
-  });
-
-  ["dragenter", "dragover"].forEach((type) =>
-    dropzone.addEventListener(type, (event) => {
-      event.preventDefault();
-      dropzone.classList.add("is-dragging");
-    })
-  );
-  ["dragleave", "drop"].forEach((type) =>
-    dropzone.addEventListener(type, (event) => {
-      if (type === "dragleave" && dropzone.contains(event.relatedTarget)) return;
-      dropzone.classList.remove("is-dragging");
-    })
-  );
-  dropzone.addEventListener("drop", (event) => {
-    event.preventDefault();
-    const dropped = event.dataTransfer;
-    if (dropped.files.length) {
-      addSampleFiles(dropped.files);
-    } else {
-      // a link dragged in from another tab
-      const link = dropped.getData("text/uri-list") || dropped.getData("text/plain");
-      if (link) addSampleLink(link.split("\n")[0]);
     }
   });
 }
@@ -193,7 +138,7 @@ if (dialog && openButton) {
   });
 }
 
-// "+ Add another link" adds one more link box under Website
+// "+ Add another link" adds one more link box under Social Media Pages
 const linkList = document.getElementById("link-list");
 const addLink = document.getElementById("add-link");
 

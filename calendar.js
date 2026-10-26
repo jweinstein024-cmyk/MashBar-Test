@@ -1,50 +1,18 @@
-// October calendar for Mash Bar.
+// Monthly calendar for Mash Bar. It always shows the current month, using
+// the visitor's clock, so it never needs to be switched over by hand.
 //
-// To update the calendar, edit SCHEDULE below: put the band name and/or
-// the deal next to any date. Leave a field as "" to show "TBA".
-// Example:  10: { band: "The Example Band", deal: "$5 Old Fashioneds" },
-
-const YEAR = 2026;
-const MONTH = 9; // 0 = January, so 9 = October
+// To add a band or a one-off deal, put the date ("YYYY-MM-DD") in SCHEDULE
+// below. Dates that aren't listed show "TBA" and the regular weekly deal.
+// Example:  "2026-11-06": { band: "The Example Band", deal: "$5 Old Fashioneds" },
 
 const SCHEDULE = {
-  1:  { band: "", deal: "" },
-  2:  { band: "", deal: "" },
-  3:  { band: "", deal: "" },
-  4:  { band: "", deal: "" },
-  5:  { band: "", deal: "" },
-  6:  { band: "", deal: "" },
-  7:  { band: "", deal: "" },
-  8:  { band: "", deal: "" },
-  9:  { band: "", deal: "" },
-  10: { band: "", deal: "" },
-  11: { band: "", deal: "" },
-  12: { band: "", deal: "" },
-  13: { band: "", deal: "" },
-  14: { band: "", deal: "" },
-  15: { band: "", deal: "" },
-  16: { band: "", deal: "" },
-  17: { band: "", deal: "" },
-  18: { band: "", deal: "" },
-  19: { band: "", deal: "" },
-  20: { band: "", deal: "" },
-  21: { band: "", deal: "" },
-  22: { band: "", deal: "" },
-  23: { band: "", deal: "" },
-  24: { band: "", deal: "" },
-  25: { band: "", deal: "" },
-  26: { band: "", deal: "" },
-  27: { band: "", deal: "" },
-  28: { band: "", deal: "" },
-  29: { band: "", deal: "" },
-  30: { band: "", deal: "" },
-  31: { band: "", deal: "" },
 };
 
 // The regular weekly lineup (0 = Sunday). A night with `band: true`
 // shows the band name from SCHEDULE. `deal` is that weekday's standing
 // deal; a deal typed into SCHEDULE for a date replaces it. `eventFirst`
 // lists that night's event above the deal and makes the event the orange line.
+// An event with `music: false` (like Trivia) is left out of the Live Music list.
 // `noDeal` leaves the deal line off that night entirely. `footnote` is a
 // small note centered at the bottom of that night's box. `hours` is
 // [opens, closes] in hours after midnight (26 = 2am the next morning); it
@@ -52,7 +20,7 @@ const SCHEDULE = {
 const WEEKLY = {
   0: { closed: true },
   1: { closed: true },
-  2: { hours: [18, 22], deal: "$20 Beer Towers", eventFirst: true, events: [{ what: "Trivia" }] },
+  2: { hours: [18, 22], deal: "$20 Beer Towers", eventFirst: true, events: [{ what: "Trivia", music: false }] },
   3: { hours: [18, 26], deal: "Half Off Everything",
        events: [{ time: "8pm–10pm", what: "Live Music", band: true },
                 { time: "10pm–Close", what: "DJ" }] },
@@ -61,6 +29,12 @@ const WEEKLY = {
   6: { hours: [18, 26], deal: "Game Day Specials TBA", events: [{ what: "DJ Time TBA" }],
        footnote: "*Schedule Subject to Change*" },
 };
+
+// The month the calendar shows: this month (by "tonight", so 1am on the
+// 1st still shows last month's last night)
+const SHOWN = currentNight();
+const YEAR = SHOWN.getFullYear();
+const MONTH = SHOWN.getMonth(); // 0 = January
 
 // Cobwebs and bats over the calendar: on automatically for an October
 // calendar. Set to false to switch them off.
@@ -154,10 +128,12 @@ function renderCalendar() {
   const grid = document.getElementById("calendar-grid");
   if (!grid) return;
 
+  const title = document.getElementById("cal-month");
+  if (title) title.textContent = SHOWN.toLocaleString("en-US", { month: "long" }) + " at Mash";
+
   const firstWeekday = new Date(YEAR, MONTH, 1).getDay();
   const daysInMonth = new Date(YEAR, MONTH + 1, 0).getDate();
-  const now = new Date();
-  const isThisMonth = now.getFullYear() === YEAR && now.getMonth() === MONTH;
+  const today = SHOWN.getDate();
 
   for (let i = 0; i < firstWeekday; i++) {
     grid.appendChild(el("li", "cal-day cal-empty"));
@@ -165,8 +141,8 @@ function renderCalendar() {
 
   for (let day = 1; day <= daysInMonth; day++) {
     const cell = dayCell(new Date(YEAR, MONTH, day));
-    if (isThisMonth && day === now.getDate()) cell.classList.add("cal-today");
-    if (isThisMonth && day < now.getDate()) cell.classList.add("cal-past");
+    if (day === today) cell.classList.add("cal-today");
+    if (day < today) cell.classList.add("cal-past");
     grid.appendChild(cell);
   }
 }
@@ -204,9 +180,10 @@ function formatHour(hour) {
   return (h % 12 || 12) + (h < 12 ? "am" : "pm");
 }
 
-// SCHEDULE only covers YEAR/MONTH; other dates use the weekly plan alone
+// SCHEDULE entries are keyed "YYYY-MM-DD"; other dates use the weekly plan alone
 function scheduleFor(date) {
-  return date.getFullYear() === YEAR && date.getMonth() === MONTH ? SCHEDULE[date.getDate()] || {} : {};
+  const key = date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
+  return SCHEDULE[key] || {};
 }
 
 // e.g. ["Karaoke 9pm–12am", "$4 Doubles"]
@@ -286,6 +263,26 @@ function renderSpecials() {
   });
 }
 
+// ---- Live Music section ----
+// Each open night's music, e.g. "Thursday: Karaoke 9pm–12am"
+
+function renderMusicNights() {
+  const list = document.getElementById("music-nights");
+  if (!list) return;
+
+  WEEKLY_ORDER.forEach((weekday) => {
+    const plan = WEEKLY[weekday];
+    if (plan.closed) return;
+    const music = plan.events.filter((event) => event.music !== false);
+    if (!music.length) return;
+    const item = el("li");
+    item.appendChild(el("strong", "", WEEKDAYS[weekday] + ":"));
+    item.appendChild(document.createTextNode(" " +
+      music.map((event) => event.time ? event.what + " " + event.time : event.what).join(", ")));
+    list.appendChild(item);
+  });
+}
+
 // ---- Marquee under the header ----
 // The next few open nights, e.g. "TONIGHT  Karaoke 9pm–12am · $4 Doubles ★"
 
@@ -316,6 +313,7 @@ function renderMarquee() {
 
 renderTonight();
 renderSpecials();
+renderMusicNights();
 renderMarquee();
 setInterval(() => {
   renderTonight();

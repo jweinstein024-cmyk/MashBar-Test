@@ -128,7 +128,7 @@
         <svg class="bat bat-2"><use href="#bat"/></svg>
         <svg class="bat bat-3"><use href="#bat"/></svg>
       </div>
-      <h2><span class="desktop-only">October at Mash</span><span class="phone-only">This Week at Mash</span></h2>
+      <h2><span class="desktop-only" id="cal-month">This Month at Mash</span><span class="phone-only">This Week at Mash</span></h2>
       <p class="cal-intro"><span class="desktop-only">Who's playing and what's on special, every night this month.</span><span class="phone-only">Who's playing and what's on special for the next 7 nights.</span></p>
       <div class="cal-weekdays" aria-hidden="true">
         <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
@@ -140,7 +140,7 @@
         <li><strong>Wednesday - Saturday</strong> 6pm - 2am</li>
       </ul>
       <noscript>
-        <p>Turn on JavaScript to see the October calendar.</p>
+        <p>Turn on JavaScript to see the calendar.</p>
       </noscript>
       </div>
     </section>
@@ -326,12 +326,8 @@
 
     <section id="music">
       <h2>Live Music</h2>
-      <ul class="plain music-nights">
-        <li><strong>Wednesday:</strong> Live Music 8pm–10pm, DJ 10pm–Close</li>
-        <li><strong>Thursday:</strong> Karaoke 9pm–12am</li>
-        <li><strong>Friday:</strong> Live Music 9pm–12am</li>
-        <li><strong>Saturday:</strong> DJ Time TBA</li>
-      </ul>
+      <!-- filled in by calendar.js from the weekly schedule -->
+      <ul class="plain music-nights" id="music-nights"></ul>
 
       <!--
         Full-width photo slideshow. To add a photo, put the file in images/slideshow/
@@ -379,8 +375,8 @@
               </label>
             </div>
             <div class="field">
-              <span class="field-label" id="links-label">Website</span>
-              <span class="field-hint" id="links-hint">Your website or social pages (Facebook, Instagram, TikTok, YouTube)</span>
+              <span class="field-label" id="links-label">Social Media Pages</span>
+              <span class="field-hint" id="links-hint">Facebook, Instagram, TikTok, or your website</span>
               <div class="link-list" id="link-list">
                 <div class="link-row">
                   <input type="text" name="links" inputmode="url" placeholder="Paste a link" aria-labelledby="links-label" aria-describedby="links-hint">
@@ -392,20 +388,15 @@
             </div>
             <div class="field">
               <span class="field-label" id="sample-label">Sample of your band playing <span class="req">*</span></span>
+              <span class="field-hint" id="sample-hint">A link to a recording or video (SoundCloud, Spotify, YouTube, Bandcamp, Google Drive)</span>
               <div class="dropzone" id="sample-drop">
-                <input type="file" id="sample-files" multiple accept="audio/*,video/*" hidden>
-                <button type="button" class="dropzone-pick" id="sample-pick" aria-describedby="sample-label">
-                  <span class="dropzone-icon" aria-hidden="true">&#8679;</span>
-                  <span class="dropzone-title"><span class="dropzone-desktop">Drag &amp; drop audio or video files here</span><span class="dropzone-touch">Tap to add audio or video files</span></span>
-                  <span class="dropzone-sub dropzone-desktop">or click to browse</span>
-                </button>
                 <div class="dropzone-link">
-                  <input type="text" id="sample-link" inputmode="url" placeholder="…or paste a link (SoundCloud, Spotify)" aria-labelledby="sample-label">
+                  <input type="text" id="sample-link" inputmode="url" placeholder="Paste a link" aria-labelledby="sample-label" aria-describedby="sample-hint">
                   <button type="button" class="dropzone-add" id="sample-add">Add</button>
                 </div>
               </div>
               <ul class="sample-list" id="sample-list"></ul>
-              <p class="field-error" id="sample-error" hidden>Add at least one file or link.</p>
+              <p class="field-error" id="sample-error" hidden>Add at least one link.</p>
             </div>
           </fieldset>
 
@@ -425,7 +416,6 @@
             </label>
           </fieldset>
 
-          <p class="form-notice" id="attach-notice" role="status" hidden></p>
           <p class="form-error" role="alert" hidden>Please fill in the required fields marked with *.</p>
           <button type="submit" class="button">Send Submission</button>
           <p class="button-note"><span class="req">*</span> required. Sending opens your email app with your answers filled in.</p>
@@ -458,6 +448,11 @@
             East Lansing, MI 48823<br>
             <a href="tel:5178582100">517.858.2100</a>
           </p>
+          <ul class="plain visit-hours">
+            <li><strong>Tuesday</strong> 6pm - 10pm</li>
+            <li><strong>Wednesday - Saturday</strong> 6pm - 2am</li>
+            <li><strong>Sunday - Monday</strong> Closed</li>
+          </ul>
           <a class="button" href="https://www.google.com/maps/search/?api=1&amp;query=212+Albert+Ave+East+Lansing+MI+48823" target="_blank" rel="noopener">Get Directions</a>
           <p class="social-links">
             <a href="https://www.facebook.com/profile.php?id=61555228272809" target="_blank" rel="noopener" aria-label="Mash on Facebook">
